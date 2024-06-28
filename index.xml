@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>;-;</title>
-    <link>https://example.com/</link>
+    <link>https://cryingcavecat.github.io/</link>
     <description>Recent content on ;-;</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 28 Jun 2024 15:30:00 +0200</lastBuildDate>
-    <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://cryingcavecat.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting Started</title>
-      <link>https://example.com/posts/getting-started/</link>
+      <link>https://cryingcavecat.github.io/posts/getting-started/</link>
       <pubDate>Fri, 28 Jun 2024 15:30:00 +0200</pubDate>
-      <guid>https://example.com/posts/getting-started/</guid>
+      <guid>https://cryingcavecat.github.io/posts/getting-started/</guid>
       <description>We&amp;rsquo;re just getting started haha!</description>
     </item>
     <item>
       <title>Title of Post</title>
-      <link>https://example.com/posts/title-of-post/</link>
+      <link>https://cryingcavecat.github.io/posts/title-of-post/</link>
       <pubDate>Fri, 28 Jun 2024 15:15:59 +0200</pubDate>
-      <guid>https://example.com/posts/title-of-post/</guid>
+      <guid>https://cryingcavecat.github.io/posts/title-of-post/</guid>
       <description></description>
     </item>
   </channel>
