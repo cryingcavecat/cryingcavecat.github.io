@@ -11,6 +11,9 @@
     <loc>https://example.com/posts/</loc>
     <lastmod>2024-06-28T15:30:00+02:00</lastmod>
   </url><url>
+    <loc>https://example.com/posts/title-of-post/</loc>
+    <lastmod>2024-06-28T15:15:59+02:00</lastmod>
+  </url><url>
     <loc>https://example.com/categories/</loc>
   </url><url>
     <loc>https://example.com/tags/</loc>

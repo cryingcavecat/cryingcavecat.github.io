@@ -15,5 +15,12 @@
       <guid>https://example.com/posts/getting-started/</guid>
       <description>We&amp;rsquo;re just getting started haha!</description>
     </item>
+    <item>
+      <title>Title of Post</title>
+      <link>https://example.com/posts/title-of-post/</link>
+      <pubDate>Fri, 28 Jun 2024 15:15:59 +0200</pubDate>
+      <guid>https://example.com/posts/title-of-post/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
