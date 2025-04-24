@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Home</title>
-    <link>http://0.0.0.0:1313/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on Home</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>with ❤️ from 🇿🇦</copyright>
     <lastBuildDate>Tue, 22 Apr 2025 14:18:40 +0200</lastBuildDate>
-    <atom:link href="http://0.0.0.0:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Can an LLM take care of my plants (or at least kill them slower than I do)?</title>
-      <link>http://0.0.0.0:1313/posts/plantmom/</link>
+      <link>http://localhost:1313/posts/plantmom/</link>
       <pubDate>Tue, 22 Apr 2025 14:18:40 +0200</pubDate>
-      <guid>http://0.0.0.0:1313/posts/plantmom/</guid>
-      <description>&lt;h2 id=&#34;in-the-beginning&#34;&gt;In the Beginning&lt;/h2&gt;&#xA;&lt;p&gt;In the beginning I was bad with plants. I mean I&amp;rsquo;m not terrible with plants but much like books, collecting them is a different hobby from reading them and with plants whatever is supposed to happen next is an afterthought.&lt;/p&gt;&#xA;&lt;p&gt;I guess I sometimes buy books from the perspective of the person I want to be. &amp;ldquo;I am a person that reads interesting books. I am a person who cares for plants&amp;rdquo;. Thank goodness for succulents, them hardy beasts. And I&amp;rsquo;m not too hard on myself because I am human after all. But AI will fix that, right? Norbert Wiener, cybernetics and all that.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/posts/plantmom/</guid>
+      <description>&lt;p&gt;Placeholder&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

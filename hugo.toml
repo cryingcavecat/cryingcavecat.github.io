@@ -23,7 +23,7 @@ palette = "dracula"
 # Sidebar: about/bio
 [params.about]
 title = "🐈‍⬛ Liam"
-description = "The adventure’s in the process."
+description = "Currently reading: They Walk by Night: True South African Ghost Stories and Tales of the Supernormal by Eric Rosenthal "
 # unicode/emoji logo:
 #logo = "🐱"
 # or use an image:
@@ -44,7 +44,7 @@ url = "https://github.com/cryingcavecat"
 [[params.socialLinks]]
 icon = "fa-solid fa-envelope"
 title = "Email"
-url = "mailto:example@example.com"
+url = "mailto:heyliam@duck.com"
 
 [[params.socialLinks]]
 icon = "fa-brands fa-linkedin"
