@@ -96,3 +96,6 @@ unsafe = true
   [services.instagram]
     disableInlineCSS = true
 
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
