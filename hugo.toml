@@ -1,6 +1,6 @@
 baseURL = "https://011.sh"
 theme = "risotto"
-title = "Home"
+title = "011.sh"
 author = "Liam"
 copyright = "with ❤️ from 🇿🇦"
 pagination.pagerSize = 3
@@ -23,7 +23,7 @@ palette = "dracula"
 # Sidebar: about/bio
 [params.about]
 title = "🐈‍⬛ Liam"
-description = "Currently reading: They Walk by Night: True South African Ghost Stories and Tales of the Supernormal by Eric Rosenthal "
+description = "Currently reading - *They Walk by Night: True South African Ghost Stories and Tales of the Supernormal* by Eric Rosenthal "
 # unicode/emoji logo:
 #logo = "🐱"
 # or use an image:
@@ -76,6 +76,7 @@ unsafe = true
     startLevel = 2
     endLevel   = 3
     ordered    = true
+
 
 [privacy]
 
