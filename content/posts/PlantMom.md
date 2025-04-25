@@ -5,6 +5,10 @@ title = 'Can an LLM take care of my plants (or at least kill them slower than I 
 +++
 ## In the Beginning
 
+<div style="text-align: center;">
+  <img src="/images/intro.jpg" alt="Hero Image">
+</div>
+
 In the beginning I was bad with plants. I mean I'm not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them. 
 
 I guess I sometimes buy books from the perspective of the person I want to be. "I am a person that reads interesting books. I am a person who cares for plants". Thank goodness for succulents, them hardy beasts. And I'm not too hard on myself because I am human after all. But AI will fix that, right? [Norbert Wiener](https://www.youtube.com/watch?v=qkDCmEtYcjU), cybernetics, extending our human form, making our lives easier and all that.
