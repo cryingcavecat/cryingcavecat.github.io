@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on 011.sh</title>
     <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on 011.sh</description>
-    <generator>Hugo</generator>
+    <image>
+      <title>011.sh</title>
+      <url>http://localhost:1313/images/papermod-cover.png</url>
+      <link>http://localhost:1313/images/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- 0.146.6</generator>
     <language>en</language>
     <copyright>with ❤️ from 🇿🇦</copyright>
-    <lastBuildDate>Tue, 22 Apr 2025 14:18:40 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 25 Apr 2025 14:18:40 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Can an LLM take care of my plants (or at least kill them slower than I do)?</title>
       <link>http://localhost:1313/posts/plantmom/</link>
-      <pubDate>Tue, 22 Apr 2025 14:18:40 +0200</pubDate>
+      <pubDate>Fri, 25 Apr 2025 14:18:40 +0200</pubDate>
       <guid>http://localhost:1313/posts/plantmom/</guid>
-      <description>&lt;h2 id=&#34;in-the-beginning&#34;&gt;In the Beginning&lt;/h2&gt;&#xA;&lt;div style=&#34;text-align: center;&#34;&gt;&#xA;  &lt;img src=&#34;http://localhost:1313/images/intro.jpg&#34; alt=&#34;Hero Image&#34;&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;In the beginning I was bad with plants. I mean I&amp;rsquo;m not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them.&lt;/p&gt;&#xA;&lt;p&gt;I guess I sometimes buy books from the perspective of the person I want to be. &amp;ldquo;I am a person that reads interesting books. I am a person who cares for plants&amp;rdquo;. Thank goodness for succulents, them hardy beasts. And I&amp;rsquo;m not too hard on myself because I am human after all. But AI will fix that, right? &lt;a href=&#34;https://www.youtube.com/watch?v=qkDCmEtYcjU&#34;&gt;Norbert Wiener&lt;/a&gt;, cybernetics, extending our human form, making our lives easier and all that.&lt;/p&gt;</description>
+      <description>&lt;figure class=&#34;align-center &#34;&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/blog/intro.jpg#center&#34;
+         alt=&#34;Hero Image&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;h2 id=&#34;in-the-beginning&#34;&gt;In the Beginning&lt;/h2&gt;
+&lt;p&gt;In the beginning I was bad with plants. I mean I&amp;rsquo;m not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them.&lt;/p&gt;
+&lt;p&gt;I guess I sometimes buy books from the perspective of the person I want to be. &amp;ldquo;I am a person that reads interesting books. I am a person who cares for plants&amp;rdquo;. Thank goodness for succulents, them hardy beasts. And I&amp;rsquo;m not too hard on myself because I am human after all. But AI will fix that, right? &lt;a href=&#34;https://www.youtube.com/watch?v=qkDCmEtYcjU&#34;&gt;Norbert Wiener&lt;/a&gt;, cybernetics, extending our human form, making our lives easier and all that.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

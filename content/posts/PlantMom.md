@@ -3,11 +3,10 @@ date = '2025-04-25T14:18:40+02:00'
 draft = false
 title = 'Can an LLM take care of my plants (or at least kill them slower than I do)?'
 +++
-## In the Beginning
 
-<div style="text-align: center;">
-  <img src="/images/intro.jpg" alt="Hero Image">
-</div>
+{{< figure align=center src="/images/blog/intro.jpg" alt="Hero Image" >}}
+
+## In the Beginning
 
 In the beginning I was bad with plants. I mean I'm not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them. 
 
@@ -17,6 +16,8 @@ ___
 ## LLM the Boring Stuff
 
 Large language models (and their multimodal siblings), I'd say have officially started reaching the realm of the Average Joe. I know this because my parents have been sending me Studio Ghibli edits of photos in which I can only imagine the prompt to include "turn my dog into a 1940's Silent Movie Actress".
+
+{{< figure align=center src="/images/blog/nandi.png" alt="Dog movie star" width="200" >}}
 
 So it stands to reason, if "normal" people are using it. It should be able to do "normal" people things. Like take care of my plants - or at least guess the most probable action to take next.
 
@@ -48,7 +49,7 @@ I made sure all the sensors worked* using an Arduino Uno clone. I've dealt with 
 
 I'd send these readings and control commands via MQTT to a central server (my headless Raspberry Pi 3B+). Without mentioning everything, my grand vision of the stack was thus: 
 
-![Diagram showing my sensor layout](/images/diagram.png)
+{{< figure align=center src="/images/blog/diagram.png" alt="Diagram showing my sensor layout" >}}
 
 ___
 ## LLM the Boring Stuff (with Python)
@@ -113,9 +114,7 @@ Now I could have been very prescriptive about it all - "at 6pm if it hasn't been
 
 ___  
 ## Putting it all together
-<div style="text-align: center;">
-  <img src="/images/3dprint.gif" alt="3D Printing Parts">
-</div>
+{{< figure align=center src="/images/blog/3dprint.gif" alt="3D Printing Parts" >}}
 
 I 3D printed some bits to help - a temporary bulb holder designed in Fusion, a [relay box](https://cults3d.com/en/3d-model/tool/relay-box-for-4-module-relay-set) and a bottom case for the [dev board](https://www.printables.com/model/393097-d1-r32-case). 
 
@@ -126,18 +125,13 @@ I 3D printed some bits to help - a temporary bulb holder designed in Fusion, a [
 
 
 
-<div style="text-align: center;">
-  <img src="/images/day.jpg" alt="Final Result - day">
-</div>
+{{< figure align=center src="/images/blog/day.jpg" alt="Final Result - day" width="400" >}}
 
-<div style="text-align: center;">The final setup.</div>
+<div style="text-align: center">The final setup.</div>
 
+{{< figure align=center src="/images/blog/night.jpg" alt="Final Result - night" width="400" >}}
 
-<div style="text-align: center;">
-  <img src="/images/night.jpg" alt="Final Result - night">
-</div>
-
-<div style="text-align: center;"> Night mode: contrary to this photo, I haven't played Schedule 1. </div>
+<div style="text-align: center">Night mode: contrary to this photo, I haven't played Schedule 1.</div>
 
 ___
 ## Relinquishing Control
@@ -145,28 +139,30 @@ ___
 When I set my script off, I fully expected havoc - but like clockwork (as I'd defined it) the script made calls to Gemma and she in turn made tool calls and the plant was being cared for. 
 
 ___
->2025-04-22 19:15:52,134 - PlantMom - INFO - Getting Time ⏰
-
->2025-04-22 19:16:55,725 - PlantMom - INFO - Gemma response: Great! It's 19:15:52. Now, let's see how the plant is doing. I think checking the soil moisture is a good first step. That will tell me if it needs water.
-
->2025-04-22 19:16:55,726 - PlantMom - INFO - Getting soil moisture 💦
-
->2025-04-22 19:17:58,530 - PlantMom - INFO - Gemma response: Okay, the soil moisture is 1381.0. That's pretty good - well within the ideal range! It's definitely not dry. 👍 I don't need to water it right now. Next, I'll check the temperature to make sure it's comfortable for the chili.
-
->2025-04-22 19:17:58,532 - PlantMom - INFO - Getting temperature 🌡️
-
->2025-04-22 19:19:01,904 - PlantMom - INFO - Gemma response: The temperature is 22.82°C. That sounds perfect for an African bird's eye chili! 🌡️ Now, let's check the light levels.
-
->2025-04-22 19:19:01,905 - PlantMom - INFO - Getting light reading 🔦
-
->2025-04-22 19:49:05,348 - PlantMom - INFO - Gemma response: The light reading is 4.29. That's a bit on the darker side. African bird's eye chilies like bright light! I think I should turn on the grow lamp.
-
->2025-04-22 19:49:05,349 - PlantMom - INFO - Sending Lamp Toggle
-
->2025-04-22 19:49:05,350 - PlantMom - INFO - Turning Lamp On 🌕
-___
+> 2025-04-22 19:15:52,134 - PlantMom - INFO - Getting Time ⏰
+>
+> 2025-04-22 19:16:55,725 - PlantMom - INFO - Gemma response: Great! It's 19:15:52. Now, let's see how the plant is doing. I think checking the soil moisture is a good first step. That will tell me if it needs water.
+>
+> 2025-04-22 19:16:55,726 - PlantMom - INFO - Getting soil moisture 💦
+>
+> 2025-04-22 19:17:58,530 - PlantMom - INFO - Gemma response: Okay, the soil moisture is 1381.0. That's pretty good - well within the ideal range! It's definitely not dry. 👍 I don't need to water it right now. Next, I'll check the temperature to make sure it's comfortable for the chili.
+>
+> 2025-04-22 19:17:58,532 - PlantMom - INFO - Getting temperature 🌡️
+>
+> 2025-04-22 19:19:01,904 - PlantMom - INFO - Gemma response: The temperature is 22.82°C. That sounds perfect for an African bird's eye chili! 🌡️ Now, let's check the light levels.
+>
+> 2025-04-22 19:19:01,905 - PlantMom - INFO - Getting light reading 🔦
+>
+> 2025-04-22 19:49:05,348 - PlantMom - INFO - Gemma response: The light reading is 4.29. That's a bit on the darker side. African bird's eye chilies like bright light! I think I should turn on the grow lamp.
+>
+> 2025-04-22 19:49:05,349 - PlantMom - INFO - Sending Lamp Toggle
+>
+> 2025-04-22 19:49:05,350 - PlantMom - INFO - Turning Lamp On 🌕
 
 ## The Logic Meltdown
+
+{{< figure align=center src="/images/blog/logic.jpg" alt="if this ... then that" width="300" >}}
+
 
 Like the worst of tech mishaps, it occurred after hours. And just like a developer, Gemma began losing her sanity when she couldn't correctly interpret the data. 
 
@@ -216,20 +212,15 @@ ___
 - It sometimes turned on the light when it needed to. 
 - It sometimes pumped water when it needed to. 
 
-<div style="text-align: center;">
-  <img src="/images/lighton.gif" alt="Light turning on">
-</div>
+{{< figure align=center src="/images/blog/lighton.gif" alt="Light turning on" >}}
 
 
 ### Things it didn't do well
 
 
-<div style="text-align: center;">
-  <img src="/images/auggie.gif" alt="Overwatering">
-</div>
+{{< figure align=center src="/images/blog/auggie.gif" alt="Overwatering" >}}
 
-
-<div style="text-align: center;"> Augustus looking concerned at the overwatering </div> 
+<div style="text-align: center">Augustus looking concerned at the overwatering</div>
 
 - It definitely pumped too much water when it didn't need to. 
 - Much like humans, plants have a circadian rhythm, Gemma thought it was a good idea to blast the light 24/7. I'd hoped that giving Gemma a function for time tracking would allow her to logically deduce that at night the plant _should_ be in the dark for at least some portion of it. She just relied on the fact that more is better. 
@@ -258,6 +249,4 @@ ___
 
 ### Appendix A
 
-<div style="text-align: center;">
-  <img src="/images/breadboard.png" alt="Breadboard pains" style="width: 400px; height: auto;">
-</div>
+{{< figure align=center src="/images/blog/breadboard.png" alt="Breadboard pains" width="400" >}}
