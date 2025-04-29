@@ -60,7 +60,7 @@ ___
 2) I wouldn't be self-hosting it either.
 	1) It might sound cocky but I do believe I'm more competent than a 7b model or anything my GPU can run without making me fear that a fire is about to start. 
 
-Philipp Schmid at Google's [article](https://www.philschmid.de/gemma-function-calling) *Google Gemma 3 Function Calling Example* is a nugget of gold I dug up in a Reddit thread somewhere and it described a method of implementing function calling using Gemma 3 27b (she might be smarter than me). 
+Philipp Schmid at Google's [article](https://www.philschmid.de/gemma-function-calling) *Google Gemma 3 Function Calling Example* is a nugget of gold I dug up in a Reddit thread somewhere and it describes a method of implementing function calling using Gemma 3 27b (she might be smarter than me). 
 
 Phil's methodology involves using an initial instruction prompt loaded with the available python functions (well-commented with arguments and purpose laid out for Gemma to interpret) as well as a task - in this case currency conversion. 
 
@@ -110,7 +110,7 @@ def water_plant(duration: float) -> string:
 
 ```
 
-Now I could have been very prescriptive about it all - "at 6pm if it hasn't been watered please pump 50ml". But that would defeat the purpose. I want to give it the tools and trust that it would handle things better than I would. At most I gave it interoperations of the sensor values I had calibrated. After some dummy data tests I proceeded knowing nothing can go wrong by just testing dummy data. 
+Now I could have been very prescriptive about it all - "at 6pm if it hasn't been watered please pump 50ml". But that would defeat the purpose. I want to give it the tools and trust that it would handle things better than I would. At most I gave it interpretations of the sensor values I had calibrated. After some dummy data tests I proceeded knowing nothing can go wrong by just testing dummy data. 
 
 ___  
 ## Putting it all together
