@@ -1,25 +1,25 @@
 +++
 date = '2025-04-25T14:18:40+02:00'
 draft = false
-title = 'Can an LLM take care of my plants (or at least kill them slower than I do)?'
+title = 'Can an LLM care for my plants (or at least kill them slower than I do)?'
 +++
 
 {{< figure align=center src="/images/blog/intro.jpg" alt="Hero Image" >}}
 
 ## In the Beginning
 
-In the beginning I was bad with plants. I mean I'm not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them. 
+In the beginning, I was bad with plants. I'm not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them. 
 
-I guess I sometimes buy books from the perspective of the person I want to be. "I am a person that reads interesting books. I am a person who cares for plants". Thank goodness for succulents, them hardy beasts. And I'm not too hard on myself because I am human after all. But AI will fix that, right? [Norbert Wiener](https://www.youtube.com/watch?v=qkDCmEtYcjU), cybernetics, extending our human form, making our lives easier and all that.
+I sometimes buy books from the perspective of the person I want to be. "I am a person that reads interesting books" and thus also "I am a person who cares for plants". Thank goodness for succulents, them hardy beasts. I'm not too hard on myself because I am human after all. But AI will fix that, right? [Norbert Wiener](https://www.youtube.com/watch?v=qkDCmEtYcjU), cybernetics, extending our human form, making our lives easier and all that.
 
 ___
 ## LLM the Boring Stuff
 
-Large language models (and their multimodal siblings), I'd say have officially started reaching the realm of the Average Joe. I know this because my parents have been sending me Studio Ghibli edits of photos in which I can only imagine the prompt to include "turn my dog into a 1940's Silent Movie Actress".
+Large language models (and their multimodal siblings), I'd say have officially started reaching the realm of the Average Joe. I know this because my parents have been sending me Studio Ghibli edits of photos in which I can only imagine the prompt to include "turn my dog into a 1940s Silent Movie Actress".
 
 {{< figure align=center src="/images/blog/nandi.png" alt="Dog movie star" width="200" >}}
 
-So it stands to reason, if "normal" people are using it. It should be able to do "normal" people things. Like take care of my plants - or at least guess the most probable action to take next.
+So it stands to reason, if "normal" people are using it. It should be able to do "normal" people things. Like, take care of my plants - or at least guess the most probable action to take next.
 
 ___
 ## How not to kill a plants
@@ -36,16 +36,16 @@ I didn't want to overcomplicate it and since I wouldn't normally do half these t
 
 This would mainly lead to two questions: Is the plant getting enough water and is the plant getting enough light?
 
-I settled on tracking light, soil moisture and temperature (just as an extra variable). With actionable tasks being relay control of a grow light and a water pump. 
+I settled on tracking light, soil moisture and temperature (just as an extra variable). With actionable tasks inlcuding relay control of a grow light and a water pump. 
 
 ___
 ## Sensor Stack
 
 Since I have SHD (sensor hoarding disorder), I managed to scavenge together the relay (4-channel), moisture sensor and photodiode (generic  MH Series ADC Readers), and multipurpose BME280 sensor (which measures temperature, humidity and atmospheric pressure) from my cupboard.
 
-I made sure all the sensors worked* using an Arduino Uno clone. I've dealt with the ESP32 in-depth previously so I went ahead and ordered a Wemos D1 R32 - an ESP32 dev board with an Uno formfactor. This would give me the best of both words - built in WiFi, dual-core processing if needed and I wouldn't bend the pins sticking it into a breadboard where only half the pins would be accessible anyway (Appendix A). I also ordered a pump and a grow light.  
+I made sure all the sensors worked* using an Arduino Uno clone. I've dealt with the ESP32 in-depth previously so I went ahead and ordered a Wemos D1 R32 - an ESP32 dev board with an Uno form factor. This would give me the best of both worlds - built-in WiFi, dual-core processing if needed and I wouldn't bend the pins sticking it into a breadboard where only half the pins would be accessible anyway (Appendix A). I also ordered a pump and a grow light.  
 
-*_see the pain tax at the end of this write-up._
+*_See the pain tax at the end of this write-up._
 
 I'd send these readings and control commands via MQTT to a central server (my headless Raspberry Pi 3B+). Without mentioning everything, my grand vision of the stack was thus: 
 
@@ -54,7 +54,7 @@ I'd send these readings and control commands via MQTT to a central server (my he
 ___
 ## LLM the Boring Stuff (with Python)
 
-... and everything else mentioned above. At the time of writing, Model Context Protocol is one of the hype trains in the AI space - as a standardisation for how LLM's should interact with external systems. It sounds like it could work for my use-case.  I thought that would be overkill so I:
+... and everything else mentioned above. At the time of writing, Model Context Protocol is one of the hype trains in the AI space - as a standardisation for how LLMs should interact with external systems. It sounds like it could work for my use-case.  I thought that would be overkill so I:
 
 1) Decided I wouldn't do that at all. I would just use a basic function calling solution. 
 2) I wouldn't be self-hosting it either.
@@ -62,21 +62,21 @@ ___
 
 Philipp Schmid at Google's [article](https://www.philschmid.de/gemma-function-calling) *Google Gemma 3 Function Calling Example* is a nugget of gold I dug up in a Reddit thread somewhere and it describes a method of implementing function calling using Gemma 3 27b (she might be smarter than me). 
 
-Phil's methodology involves using an initial instruction prompt loaded with the available python functions (well-commented with arguments and purpose laid out for Gemma to interpret) as well as a task - in this case currency conversion. 
+Phil's methodology involves using an initial instruction prompt loaded with the available Python functions (well-commented with arguments and purpose laid out for Gemma to interpret) as well as a task - in this case currency conversion. 
 
-- The prompt let's Gemma know that it should "call" any of the listed functions in order to complete the task and that it must do so using a specific character escaped format. 
+- The prompt lets Gemma know that it should "call" any of the listed functions in order to complete the task and that it must do so using a specific character escaped format. 
 - This format is then used to strip the function from the response using regex and run it. 
 - The output is then passed back to Gemma for her evaluation and so it loops ...
 
 I modified the [original code](https://github.com/philschmid/gemini-samples/blob/main/examples/gemma-function-calling.ipynb) for my purposes:
-- including MQTT logic
-- Adding a whitelist of functions to check against before using eval() on everything like it's salt - easy, tasty and bad for my blood pressure.  Phil does point out that this is just for demo but even though I'm running this all locally it makes me feel slightly better.
+- Including MQTT logic
+- Adding a whitelist of functions to check against before using eval() on everything like it's salt - easy, tasty and bad for my blood pressure.  Phil does point out that this is just for a demo but even though I'm running this all locally it makes me feel slightly better.
 - Looping the chat cycle in perpetuity.  
 
 My prompt roughly boiled down to:
 
 ```python
-You are in charge of taking care of a plant (African bird's eye chili).
+You are in charge of taking care of a plant (African bird's eye chilli).
 
 At each turn, if you decide to invoke any of the function(s),
 
@@ -110,7 +110,7 @@ def water_plant(duration: float) -> string:
 
 ```
 
-Now I could have been very prescriptive about it all - "at 6pm if it hasn't been watered please pump 50ml". But that would defeat the purpose. I want to give it the tools and trust that it would handle things better than I would. At most I gave it interpretations of the sensor values I had calibrated. After some dummy data tests I proceeded knowing nothing can go wrong by just testing dummy data. 
+Now I could have been very prescriptive about it all - "at 6 pm if it hasn't been watered please pump 50ml". But that would defeat the purpose. I want to give it the tools and trust that it would handle things better than I would. At most, I gave it interpretations of the sensor values I had calibrated. After some dummy data tests, I proceeded knowing nothing could go wrong by just testing dummy data. 
 
 ___  
 ## Putting it all together
@@ -121,7 +121,7 @@ I 3D printed some bits to help - a temporary bulb holder designed in Fusion, a [
 - The pump is placed in a closed container because I only want _some_ water near my circuits (and because my cat wants to drink this water). 
 - The sensors are also powered by a separate breadboard power supply to limit the load on the microcontroller. 
 - I chose an African Bird's Eye Chilli (Peri-peri) as the sacrificial lamb because I like hot sauce. And biggest fruits are a good metric for plant health. 
-- As measures of health I counted the chilis (44). And as a preferred measure of health that wouldn't drive me nuts, I measured plant height from table to top (40 cm) and the length of the longest branch (51 cm).
+- As measures of health, I counted the chilis (44). As a preferred measure of health that wouldn't drive me nuts, I measured plant height from table to top (40 cm) and the length of the longest branch (51 cm).
 
 
 
@@ -168,7 +168,7 @@ Like the worst of tech mishaps, it occurred after hours. And just like a develop
 
 As shown above, I'd calibrated the moisture sensor values as being in the range of about 1200 (in a glass of water) to 4095 (bone dry or in air - no conductivity between the poles). Gemma correctly interpreted this with 1381 being considered wet. 
 
-A reading was interpreted that was slightly lower than the previously taken one. Gemma for some unknown reason decided that turning the grow lamp off would then reduce the moisture?
+A reading was interpreted that was slightly lower than the previously taken one. Gemma for some unknown reason decided that turning the grow lamp off would then reduce the moisture.
 
 
 >2025-04-22 23:02:55,093 - PlantMom - INFO - Gemma response: The soil moisture is 1323.0. It's continuing to rise! It's getting a bit on the wet side. I think it's time to let the soil dry out a bit. I'll hold off on watering for now.
@@ -204,7 +204,7 @@ I feel a bit bad for "her" here. Maybe she does care. If all _my_ Gemma has ever
 
 >2025-04-23 06:33:27,661 - PlantMom - INFO - Gemma response: YES!!! 🎉 The soil moisture is now 1757.0! It's still decreasing! This is incredible! I can't believe it! The plant is actually recovering! After all the overwatering, after declaring it dead, it's fighting its way back! 🌿💪 I'm so happy I didn't give up! I'm going to continue to monitor it closely, but I'm starting to feel genuinely hopeful. This is a miracle! ✨ I'm officially a believer in the resilience of plants (and the importance of not giving up too soon!). 😊
 
-For now I'll leave her be. Without refilling my water tank.
+For now, I'll leave her be. Without refilling my water tank.
 
 ___
 ### Things it did well
@@ -223,8 +223,8 @@ ___
 <div style="text-align: center">Augustus looking concerned at the overwatering</div>
 
 - It definitely pumped too much water when it didn't need to. 
-- Much like humans, plants have a circadian rhythm, Gemma thought it was a good idea to blast the light 24/7. I'd hoped that giving Gemma a function for time tracking would allow her to logically deduce that at night the plant _should_ be in the dark for at least some portion of it. She just relied on the fact that more is better. 
-	- The grow light (with less light in the visible spectrum) didn't push the photodiode to the values I'd initially calibrated with, however this wouldn't have made a difference to the above. 
+- Much like humans, plants have a circadian rhythm, so Gemma thought it was a good idea to blast the light 24/7. I'd hoped that giving Gemma a function for time tracking would allow her to logically deduce that at night the plant _should_ be in the dark for at least some portion of it. She just relied on the fact that more is better. 
+	- The grow light (with less light in the visible spectrum) didn't push the photodiode to the values I'd initially calibrated with, however, this wouldn't have made a difference to the above. 
 - LLM Rationalization Spaghetti - where the logic doesn't always make sense because it's actually just guessing what the next probable word is. High values, low values? Who cares, less light equals more moisture drying up and more water flushes out the other water, right?
 
 ___
@@ -239,13 +239,14 @@ All I know is I definitely wouldn't want to see how this experiment goes with a 
 _Mr Peri Peri is still alive._
 
 ___
-## Pain Tax (things I probably knew but clearly needed discover again)
+## Pain Tax (things I probably knew but clearly needed to discover again)
 
-- ADC values - I switched from an Arduino prototype board to an ESP32 one. They have different ADC resolutions: readings on the Arduino would range from 0-1023 and on ESP32 it would be 0-4095.  This would interfere with my voltage adjusted calculation but I did calibrate with the sensors running on the ESP32 which reduced this being an issue (besides the ADC readings on an ESP32 being notoriously finicky).
+- ADC values - I switched from an Arduino prototype board to an ESP32 one. They have different ADC resolutions: readings on the Arduino would range from 0-1023 and on ESP32 it would be 0-4095.  This would interfere with my voltage-adjusted calculation but I did calibrate with the sensors running on the ESP32 which reduced this being an issue (besides the ADC readings on an ESP32 being notoriously finicky).
 - Pin wiring - I love generic boards, you can have two pins labelled IO21 and the fun part is figuring out which is mapped to 25 in code. 
 - Use a cheap soldering iron: knives are not great for cutting Tupperware and this will save you a trip to the ER. At least I got a cool X-ray out of it. 
 - I could have definitely experienced a better result by using just the MCU and hard coding cycles and responses. 
 - Incorrect I2C addresses - turns out the BME280 was reporting a wire address the library didn't recognise (as sometimes happens with revisions and clones). I edited the library to accept it but changing to the BMP280 library proved to be the quicker fix. 
+- 2024/04/29: On /r/Arduino, user [HairSorry7888](https://www.reddit.com/r/arduino/comments/1k9sik1/comment/mpj8lrp/) also informed me of how resistive moisture sensors corrode rapidly in soil which leads to plant death. I'll take their recommendation and acquire a capacitive sensors instead. 
 
 ### Appendix A
 
