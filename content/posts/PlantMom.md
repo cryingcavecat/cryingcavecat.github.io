@@ -246,7 +246,8 @@ ___
 - Use a cheap soldering iron: knives are not great for cutting Tupperware and this will save you a trip to the ER. At least I got a cool X-ray out of it. 
 - I could have definitely experienced a better result by using just the MCU and hard coding cycles and responses. 
 - Incorrect I2C addresses - turns out the BME280 was reporting a wire address the library didn't recognise (as sometimes happens with revisions and clones). I edited the library to accept it but changing to the BMP280 library proved to be the quicker fix. 
-- 2024/04/29: On /r/Arduino, user [HairSorry7888](https://www.reddit.com/r/arduino/comments/1k9sik1/comment/mpj8lrp/) also informed me of how resistive moisture sensors corrode rapidly in soil which leads to plant death. I'll take their recommendation and acquire a capacitive sensors instead. 
+- 2024/04/29: On /r/Arduino, user [HairSorry7888](https://www.reddit.com/r/arduino/comments/1k9sik1/comment/mpj8lrp/) also informed me of how resistive moisture sensors corrode rapidly in soil which leads to plant death. I'll take their recommendation and acquire a capacitive sensors instead.
+- 2024/04/30: Featured on [Hackaday](https://hackaday.com/2025/04/29/comparing-ai-for-basic-plant-care-with-human-brown-thumbs/)
 
 ### Appendix A
 
