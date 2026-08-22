@@ -9,13 +9,21 @@
       <url>http://localhost:1313/images/papermod-cover.png</url>
       <link>http://localhost:1313/images/papermod-cover.png</link>
     </image>
-    <generator>Hugo -- 0.146.6</generator>
+    <generator>Hugo -- 0.164.0</generator>
     <language>en</language>
     <copyright>with ❤️ from 🇿🇦</copyright>
-    <lastBuildDate>Fri, 25 Apr 2025 14:18:40 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2026 13:46:49 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Can an LLM take care of my plants (or at least kill them slower than I do)?</title>
+      <title>Using a shock collar to stop myself doomscrolling</title>
+      <link>http://localhost:1313/posts/pavlov/</link>
+      <pubDate>Sat, 15 Aug 2026 13:46:49 +0200</pubDate>
+      <guid>http://localhost:1313/posts/pavlov/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m hooked up to the dopamine scroll machine where Meta harvests my soul for advertising. At this point that&amp;rsquo;s how I see it. Like anyone with a smartphone and social media I&amp;rsquo;m susceptible to a junk food diet of endlessly scrolling Instagram Reels or viewing pigs sling mud at one another on whatever Facebook has deemed popular enough to show me against my will.&lt;/p&gt;
+&lt;p&gt;I do dream of a healthy social media diet (and more self-control). Instagram is full of lovely creators that fill me with motivation and, well, Facebook has some interesting things on marketplace. Typical wisdom would suggest removing temptation completely and deleting these apps, but I find them marginally useful for work and for buying furniture. So instead I&amp;rsquo;d much rather try and reduce my consumption.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Can an LLM care for my plants (or at least kill them slower than I do)?</title>
       <link>http://localhost:1313/posts/plantmom/</link>
       <pubDate>Fri, 25 Apr 2025 14:18:40 +0200</pubDate>
       <guid>http://localhost:1313/posts/plantmom/</guid>
@@ -25,8 +33,8 @@
 &lt;/figure&gt;
 
 &lt;h2 id=&#34;in-the-beginning&#34;&gt;In the Beginning&lt;/h2&gt;
-&lt;p&gt;In the beginning I was bad with plants. I mean I&amp;rsquo;m not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them.&lt;/p&gt;
-&lt;p&gt;I guess I sometimes buy books from the perspective of the person I want to be. &amp;ldquo;I am a person that reads interesting books. I am a person who cares for plants&amp;rdquo;. Thank goodness for succulents, them hardy beasts. And I&amp;rsquo;m not too hard on myself because I am human after all. But AI will fix that, right? &lt;a href=&#34;https://www.youtube.com/watch?v=qkDCmEtYcjU&#34;&gt;Norbert Wiener&lt;/a&gt;, cybernetics, extending our human form, making our lives easier and all that.&lt;/p&gt;</description>
+&lt;p&gt;In the beginning, I was bad with plants. I&amp;rsquo;m not terrible with plants -  but much like books, collecting them is a different hobby from actually doing anything with them.&lt;/p&gt;
+&lt;p&gt;I sometimes buy books from the perspective of the person I want to be. &amp;ldquo;I am a person that reads interesting books&amp;rdquo; and thus also &amp;ldquo;I am a person who cares for plants&amp;rdquo;. Thank goodness for succulents, them hardy beasts. I&amp;rsquo;m not too hard on myself because I am human after all. But AI will fix that, right? &lt;a href=&#34;https://www.youtube.com/watch?v=qkDCmEtYcjU&#34;&gt;Norbert Wiener&lt;/a&gt;, cybernetics, extending our human form, making our lives easier and all that.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
