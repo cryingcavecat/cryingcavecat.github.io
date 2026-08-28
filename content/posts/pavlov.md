@@ -2,6 +2,10 @@
 date: '2026-08-15T13:46:49+02:00'
 draft: false
 title: 'Using a shock collar to stop myself doomscrolling'
+cover:
+  image: "/images/blog/collar2.jpg"
+  alt: "The S900 collar in hand"
+
 ---
 
 I'm hooked up to the dopamine scroll machine where Meta harvests my soul for advertising. At this point that's how I see it. Like anyone with a smartphone and social media I'm susceptible to a junk food diet of endlessly scrolling Instagram Reels or viewing pigs sling mud at one another on whatever Facebook has deemed popular enough to show me against my will. 
