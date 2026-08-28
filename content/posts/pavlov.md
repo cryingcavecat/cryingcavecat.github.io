@@ -108,3 +108,5 @@ I was now too scared to use my phone. I was also too scared to keep using the co
 - A more comfortable collar where it doesn't loosely dangle like an untied shoe. I could 3D print a bracket to seat around the metal pegs and make it sit more flush with my leg.
 - Turn this into buttplug.io for masochists.
 
+2026/08/23: Featured on [Hackaday](https://hackaday.com/2026/08/23/bluetooth-shock-collar-keeps-wearer-on-task/)
+
