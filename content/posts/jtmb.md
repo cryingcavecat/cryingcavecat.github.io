@@ -2,7 +2,10 @@
 title: "Clickbait is kak, so I built Just Tell Me, Bru!"
 date: 2026-10-08T15:01:58+02:00
 draft: false
-description: ""
+description: "A browser extension that rewrites clickbait headlines on MyBroadband and BusinessTech into what actually happened."
+cover:
+  image: "/images/jtmb/marquee.png"
+  alt: "Just Tell Me, Bru! with its hadeda mascot: Hadeda forces headlines to contain news"
 ---
 
 I asked my friend "What's more painful? Clickbait headlines or passing kidney stones?" He replied "Let's put it this way, a clickbait headline has never made me cry myself to sleep at night."
@@ -39,6 +42,16 @@ Unless you're a mind-reader, you got some wrong.
 
 I want my headlines informative. I don't want to search for them inside a Kinder Egg. So Just Tell Me, Bru! It's an extension I made that rewrites these headlines into less clickbaity alternatives. The screenshots I used above are actually the extension in action.
 
+It also turns "five things you need to know" roundups into a list of what's actually in them:
+
+![A roundup headline with its stories listed underneath](/images/jtmb/roundups.png)
+
+And the site's original headline stays underneath in small grey text, or you can switch it off:
+
+![The original headline under the rewrite, and the extension's settings](/images/jtmb/original-stays.png)
+
 [Get Just Tell Me, Bru! on the Chrome Web Store](https://chromewebstore.google.com/detail/bdfmakfmpedgopakljdhcobmnbedfpcl). It's free.
+
+There's more about it, including the privacy policy, at [bru.011.sh](https://bru.011.sh).
 
 Clickbait is kak and we don't have to deal with it.
