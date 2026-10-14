@@ -114,6 +114,7 @@ button { font: inherit; color: inherit; }
 html, body { margin: 0; }
 .embedded .wrap { padding-block: 4px 8px; padding-inline: 2px; }
 .embedded body { background: transparent; }
+html.embedded { color-scheme: normal !important; }
 </style>
 </head>
 <body>
@@ -277,9 +278,15 @@ document.addEventListener('keydown', e => {
 const EMBEDDED = window.parent !== window;
 if (EMBEDDED) {
   document.documentElement.classList.add('embedded');
-  const post = () => parent.postMessage({ type: 'wah-height', h: document.documentElement.scrollHeight }, '*');
+  // body, not documentElement: the root is never shorter than the frame, so it could only ever grow.
+  const post = () => parent.postMessage({ type: 'wah-height', h: Math.ceil(document.body.getBoundingClientRect().height) }, '*');
   new ResizeObserver(post).observe(document.body);
   window.addEventListener('load', post);
+  // The host page says whether it is in light or dark mode, so the game matches its theme toggle.
+  window.addEventListener('message', e => {
+    if (e.source === parent && e.data && e.data.type === 'wah-theme') document.documentElement.dataset.theme = e.data.dark ? 'dark' : 'light';
+  });
+  parent.postMessage({ type: 'wah-ready' }, '*');
 }
 render();
 </script>

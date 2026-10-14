@@ -3,7 +3,7 @@
   <iframe src="{{ "games/what-actually-happened/" | relURL }}"
           title="What actually happened? A headline game"
           loading="lazy" scrolling="no"
-          style="display:block;width:100%;min-height:620px;border:0;background:transparent"></iframe>
+          style="display:block;width:100%;height:600px;border:0;background:transparent"></iframe>
   <p style="margin:.5rem 0 0;font-size:.85em;opacity:.7">
     <a href="{{ "games/what-actually-happened/" | relURL }}">Open the game on its own page</a>
   </p>
@@ -11,8 +11,14 @@
 <script>
 (function () {
   var frame = document.currentScript.previousElementSibling.querySelector('iframe');
+  // PaperMod marks dark mode with a "dark" class on <body>; pass it on so the game matches the toggle.
+  function sendTheme() {
+    if (frame.contentWindow) frame.contentWindow.postMessage({ type: 'wah-theme', dark: document.body.classList.contains('dark') }, '*');
+  }
+  new MutationObserver(sendTheme).observe(document.body, { attributes: true, attributeFilter: ['class'] });
   window.addEventListener('message', function (e) {
     if (e.source !== frame.contentWindow || !e.data) return;
+    if (e.data.type === 'wah-ready') sendTheme();
     if (e.data.type === 'wah-height') frame.style.height = e.data.h + 'px';
     if (e.data.type === 'wah-top' && frame.getBoundingClientRect().top < 0) frame.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
