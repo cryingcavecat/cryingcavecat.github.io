@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A headline game: read a vague MyBroadband or BusinessTech headline and pick the story the article actually reports.">
+<title>What Actually Happened?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow card column. The headline is the hero, set big; a highlighter swipe marks the real story on reveal. */
+:root {
+  --bg: #eef1f5;
+  --card: #ffffff;
+  --ink: #121419;
+  --ink-2: #4b505b;
+  --ink-3: #7c818c;
+  --line: #dfe3ea;
+  --mark: #ffd23f;
+  --mark-ink: #121419;
+  --right: #1d7f47;
+  --right-bg: #e4f4ea;
+  --wrong: #c0362c;
+  --wrong-bg: #fbe8e6;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101216; --card: #191c22; --ink: #eef0f4; --ink-2: #b6bbc6; --ink-3: #868c98; --line: #2b2f38;
+    --mark: #e2b714; --mark-ink: #111214; --right: #5fcf8c; --right-bg: #173323; --wrong: #f08378; --wrong-bg: #3a1d1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101216; --card: #191c22; --ink: #eef0f4; --ink-2: #b6bbc6; --ink-3: #868c98; --line: #2b2f38;
+  --mark: #e2b714; --mark-ink: #111214; --right: #5fcf8c; --right-bg: #173323; --wrong: #f08378; --wrong-bg: #3a1d1a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--font-body); }
+.wrap { max-width: 720px; margin: 0 auto; padding-inline: 18px; padding-block: 28px 64px; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; min-height: 28px; }
+.brand { font: 800 15px/1 var(--font-display); letter-spacing: -.01em; }
+.brand mark { background: var(--mark); color: var(--mark-ink); padding: 1px 4px; border-radius: 3px; }
+.hud { display: flex; gap: 14px; font: 500 13px var(--font-mono); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.progress { height: 4px; background: var(--line); border-radius: 4px; overflow: hidden; margin-bottom: 22px; }
+.progress i { display: block; height: 100%; background: var(--ink); width: 0; transition: width .3s ease; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: clamp(18px, 4vw, 30px); }
+.site { font: 500 12px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.headline { font: 800 clamp(26px, 5.4vw, 40px)/1.1 var(--font-display); letter-spacing: -.02em; margin: 10px 0 6px; text-wrap: balance; }
+.ask { color: var(--ink-2); margin: 0 0 18px; }
+
+.opts { display: grid; gap: 10px; }
+.opt { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; text-align: left; width: 100%;
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 14px; cursor: pointer; line-height: 1.4; }
+.opt:hover:not(:disabled) { border-color: var(--ink-3); }
+.opt:disabled { cursor: default; }
+.opt .k { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font: 500 13px var(--font-mono); background: var(--bg); color: var(--ink-2); }
+.opt .txt { min-width: 0; }
+.opt .tag { display: block; margin-top: 6px; font: 500 12px var(--font-mono); letter-spacing: .02em; }
+.opt.right { border-color: var(--right); background: var(--right-bg); }
+.opt.right .k { background: var(--right); color: var(--card); }
+.opt.right .tag { color: var(--right); }
+.opt.wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+.opt.wrong .k { background: var(--wrong); color: var(--card); }
+.opt.wrong .tag { color: var(--wrong); }
+.opt.assumed:not(.wrong):not(.right) .tag { color: var(--ink-3); }
+.opt.dim { opacity: .55; }
+.opt.right .txt b { background: var(--mark); color: var(--mark-ink); font-weight: 600; padding: 1px 4px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+.reveal { margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 16px; display: grid; gap: 10px; }
+.reveal .label { font: 500 12px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.reveal p { margin: 0; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.btn { border: 0; background: var(--ink); color: var(--bg); padding: 12px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.hint { font-size: 13px; color: var(--ink-3); }
+
+/* Start */
+.intro h1 { font: 800 clamp(38px, 8vw, 64px)/1 var(--font-display); letter-spacing: -.03em; margin: 6px 0 16px; text-wrap: balance; }
+.intro h1 mark { background: var(--mark); color: var(--mark-ink); padding: 0 .12em; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.intro p { color: var(--ink-2); max-width: 56ch; margin: 0 0 14px; font-size: 17px; }
+.sample { margin: 22px 0; padding: 16px 18px; border-left: 4px solid var(--mark); background: var(--bg); border-radius: 0 10px 10px 0; }
+.sample .headline { font-size: clamp(22px, 4vw, 28px); margin: 6px 0; }
+.sample .q { font: 500 13px var(--font-mono); color: var(--ink-3); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--ink-2); margin-bottom: 22px; }
+.facts b { color: var(--ink); }
+
+/* End */
+.end .big { display: flex; align-items: center; gap: 16px; margin: 6px 0 10px; }
+.end .score { font: 800 clamp(56px, 12vw, 88px)/1 var(--font-display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.end .score small { font-size: .4em; color: var(--ink-3); }
+.end h2 { font: 800 28px/1.15 var(--font-display); margin: 0 0 8px; text-wrap: balance; }
+.end p { color: var(--ink-2); margin: 0 0 12px; max-width: 58ch; }
+.review { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+.review li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; font-size: 14.5px; line-height: 1.45; }
+.review .mk { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.review .ok .mk { background: var(--right-bg); color: var(--right); }
+.review .no .mk { background: var(--wrong-bg); color: var(--wrong); }
+.review .h { font-weight: 600; }
+.review .a { color: var(--ink-2); }
+.foot { margin-top: 26px; font-size: 13px; color: var(--ink-3); }
+.copied { font-size: 13px; color: var(--right); }
+@media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+html, body { margin: 0; }
+.embedded .wrap { padding-block: 4px 8px; padding-inline: 2px; }
+.embedded body { background: transparent; }
+html.embedded { color-scheme: normal !important; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">What <mark>actually</mark> happened?</div>
+    <div class="hud" id="hud" hidden><span id="qnum">1 / 20</span><span id="pts">0 right</span></div>
+  </div>
+  <div class="progress" id="progress" hidden><i id="bar"></i></div>
+  <main id="app"></main>
+  <p class="foot">Real headlines from MyBroadband and BusinessTech, 29 September to 6 October 2026. Each links to the original article.</p>
+</div>
+
+<script>
+const QUESTIONS = [{"id": "mb:670762", "site": "mb", "h": "Bad news for DStv customers in South Africa", "url": "https://mybroadband.co.za/news/broadcasting/670762-bad-news-for-dstv-customers-in-south-africa.html", "actual": "MultiChoice suspended parts of the DStv Rewards loyalty programme and now makes DStv Coins expire when customers disconnect.", "o": [["DStv cut back its Rewards programme, and Coins now expire when you disconnect", "right"], ["DStv is raising subscription prices on most packages by R10 to R50 a month", "assumed"], ["DStv is dropping SuperSport channels from its cheaper Compact packages", "other"], ["DStv will stop supporting older decoders, forcing upgrades next year", "other"]]}, {"id": "mb:670387", "site": "mb", "h": "Good news for people who bank with Capitec", "url": "https://mybroadband.co.za/news/banking/670387-good-news-for-people-who-bank-with-capitec-4.html", "actual": "Capitec Bank Holdings Limited officially renamed Capitec Limited, reflecting expansion beyond banking, with growth in Capitec Connect and related services.", "o": [["Capitec Bank Holdings is renaming itself Capitec Limited", "right"], ["Capitec is cutting its monthly account fee and adding free features", "assumed"], ["Capitec is raising interest rates on its savings accounts", "other"], ["Capitec is refunding customers who were double-charged in a glitch", "other"]]}, {"id": "mb:669930", "site": "mb", "h": "Secret new TV licence plan in South Africa", "url": "https://mybroadband.co.za/news/broadcasting/669930-secret-new-tv-licence-plan-in-south-africa.html", "actual": "SABC is gamifying its SABC+ streaming platform to encourage TV licence payments, but won't disclose details amid very high non-payment.", "o": [["The SABC is adding game-like rewards to SABC+ to get people paying licences", "right"], ["Government is replacing the TV licence with a household levy", "assumed"], ["The SABC will start charging TV licences on smartphones and laptops", "other"], ["The SABC wants banks to deduct TV licence fees from accounts automatically", "other"]]}, {"id": "mb:670202", "site": "mb", "h": "A formula for failure in South Africa’s richest city", "url": "https://mybroadband.co.za/news/columns/670202-a-formula-for-failure-in-south-africas-richest-city.html", "actual": "Johannesburg's 'ringfencing' of City Power is nominal: the City keeps 30% of electricity revenue upfront, leaving the utility unable to cover its costs.", "o": [["Joburg takes 30% of City Power's revenue upfront, so the utility can't cover costs", "right"], ["Johannesburg is failing at basic services like water, electricity and potholes", "assumed"], ["A new property rates formula will push up bills for Johannesburg homeowners", "other"], ["Joburg's budget relies on revenue forecasts the Treasury calls unrealistic", "other"]]}, {"id": "bt:878262", "site": "bt", "h": "Over 220 businesses liquidated in South Africa", "url": "https://businesstech.co.za/news/business/878262/over-220-businesses-liquidated-in-south-africa/", "actual": "227 South African businesses were liquidated in August, down 15.3% year-on-year, though CoFace expects insolvencies to rise with higher interest rates.", "o": [["227 businesses were liquidated in August, 15.3% fewer than a year earlier", "right"], ["Liquidations climbed past 220 in a month, blamed on interest rates and load shedding", "assumed"], ["Over 220 small businesses closed after a spike in crime in Gauteng", "other"], ["One holding company's collapse took more than 220 subsidiaries down with it", "other"]]}, {"id": "mb:670129", "site": "mb", "h": "Top bank rolls out major changes to ATMs and branches in South Africa", "url": "https://mybroadband.co.za/news/banking/670129-top-bank-rolls-out-major-changes-to-atms-and-branches-in-south-africa.html", "actual": "Absa is modernising its branches, ATMs and self-service network toward advisory-led branches and agency banking, while saying it is not cutting its branch footprint.", "o": [["Absa is modernising branches and ATMs, and isn't cutting its branch count", "right"], ["Standard Bank is closing branches and swapping ATMs for digital devices", "assumed"], ["FNB is removing cash deposits from older ATMs and most of its branches", "other"], ["Nedbank is charging more for withdrawing cash over the counter", "other"]]}, {"id": "bt:877137", "site": "bt", "h": "Disturbing insurance trend emerging in South Africa", "url": "https://businesstech.co.za/news/banking/877137/disturbing-insurance-trend-emerging-in-south-africa/", "actual": "Life insurers report a surge in murder-for-payout cases (38 in 2024 vs 14 in 2023); the NFO urges informed-consent rules for policies.", "o": [["Life insurers saw murder-for-payout cases jump from 14 to 38 in a year", "right"], ["More households are cancelling insurance they can no longer afford", "assumed"], ["Insurers are rejecting more car claims over unroadworthy vehicles", "other"], ["Funeral policy fraud by syndicates is costing insurers billions", "other"]]}, {"id": "bt:876274", "site": "bt", "h": "The environmental risk many businesses overlook", "url": "https://businesstech.co.za/news/industry-news/876274/the-environmental-risk-many-businesses-overlook-2/", "actual": "Businesses overlook responsible disposal of used lubricating oil, a hazardous waste; the ROSE Foundation urges collection and recycling through accredited networks.", "o": [["Many businesses dispose of used lubricating oil, a hazardous waste, badly", "right"], ["Businesses are ignoring the risk water scarcity poses to their operations", "assumed"], ["Old office e-waste is leaking toxic chemicals into municipal landfills", "other"], ["Businesses face fines for air pollution from their backup generators", "other"]]}, {"id": "mb:670607", "site": "mb", "h": "The Joy of an Active Holiday", "url": "https://mybroadband.co.za/news/industrynews/670607-the-joy-of-an-active-holiday.html", "actual": "A sponsored promotion of Club Med all-inclusive beach resort holidays (Mauritius, Seychelles, Phuket, Maldives) as a winter escape for South African families.", "o": [["It's a sponsored promotion for Club Med beach resort holidays", "right"], ["It's about fitness wearables that track your hikes and runs on holiday", "assumed"], ["It's a guide to South Africa's best hiking and cycling trails", "other"], ["It's new research on why active holidays are better for your health", "other"]]}, {"id": "mb:669782", "site": "mb", "h": "Insurance industry in South Africa under attack and customers are the victims", "url": "https://mybroadband.co.za/news/security/669782-insurance-industry-in-south-africa-under-attack-and-customers-are-the-victims.html", "actual": "A ransomware breach at supplier MIP Holdings via Jira exposed data of South African insurers' customers, including Hollard and Guardrisk.", "o": [["A ransomware breach at supplier MIP Holdings exposed insurers' customer data", "right"], ["Fraud syndicates and cyberattacks are pushing premiums up across the industry", "assumed"], ["Insurers are rejecting record numbers of household claims after the floods", "other"], ["A new law will let insurers share customers' medical records with each other", "other"]]}, {"id": "mb:669550", "site": "mb", "h": "R10-million free Wi-Fi contracts scrutinised in South Africa", "url": "https://mybroadband.co.za/news/broadband/669550-r10-million-free-wi-fi-contracts-scrutinised-in-south-africa.html", "actual": "Minister Malatsi told Parliament that broadband contracts over R10m exist but details aren't ready, amid committee concern over delayed SA Connect Wi-Fi rollout and underspending.", "o": [["A minister couldn't yet give Parliament details of contracts over R10m", "right"], ["The SIU is investigating R10m in irregular contracts for free public Wi-Fi", "assumed"], ["A municipality cancelled a R10m Wi-Fi contract after the hotspots never worked", "other"], ["Auditors found R10m paid for Wi-Fi at schools that don't have it", "other"]]}, {"id": "mb:669925", "site": "mb", "h": "Bad news for people who want to block spam calls in South Africa", "url": "https://mybroadband.co.za/news/cellular/669925-bad-news-for-people-who-want-to-block-spam-calls-in-south-africa.html", "actual": "The NCC's direct-marketing opt-out registry, not yet officially launched, faces slow profile approvals and incomplete telemarketer registration, delaying consumers' ability to opt out.", "o": [["The NCC's opt-out register is held up by slow approvals and missing telemarketers", "right"], ["ICASA has delayed launching a national system for blocking spam calls", "assumed"], ["Networks say popular call-blocking apps break POPIA and must be removed", "other"], ["Spam calls rose 40% this year despite new rules that were meant to stop them", "other"]]}, {"id": "mb:669819", "site": "mb", "h": "South Africa’s largest mall to get 6th biggest solar power system of its kind", "url": "https://mybroadband.co.za/news/energy/669819-south-africas-largest-mall-to-get-6th-biggest-solar-power-system-of-its-kind.html", "actual": "Fourways Mall is getting a 6.3MWp rooftop solar system, which will not rank among South Africa's five largest mall systems.", "o": [["Fourways Mall is getting a 6.3MWp rooftop solar system", "right"], ["Menlyn Park is installing a multi-megawatt rooftop and carport solar system", "assumed"], ["Mall of Africa is going fully off-grid with solar and batteries", "other"], ["Sandton City is getting the world's sixth-largest mall solar plant", "other"]]}, {"id": "bt:877649", "site": "bt", "h": "Another sign of collapse in South Africa", "url": "https://businesstech.co.za/news/business-opinion/877649/another-sign-of-collapse-in-south-africa/", "actual": "An expert says calls for import restrictions reflect South Africa's collapsed manufacturing base, after the government dropped planned checks on Chinese imports.", "o": [["An expert says manufacturing has collapsed, as checks on Chinese imports are dropped", "right"], ["Another major manufacturer has cut thousands of jobs and closed its plants", "assumed"], ["Another municipality has been placed under administration by the province", "other"], ["Another national road bridge has collapsed for lack of maintenance", "other"]]}, {"id": "bt:877970", "site": "bt", "h": "Shoprite’s new store taking over South Africa", "url": "https://businesstech.co.za/news/business/877970/shoprites-new-store-taking-over-south-africa/", "actual": "Shoprite opened its 50th Uniq by Checkers clothing store in Sea Point, marking growth of its fashion brand against competitors.", "o": [["Shoprite opened its 50th Uniq by Checkers clothing store, in Sea Point", "right"], ["Shoprite is rolling out a small-format discount store nationwide", "assumed"], ["Checkers Sixty60 dark stores are opening in every province", "other"], ["Shoprite is turning old OK Furniture stores into Checkers Hypers", "other"]]}, {"id": "bt:877919", "site": "bt", "h": "Money flooding out of South Africa", "url": "https://businesstech.co.za/news/finance/877919/money-flooding-out-of-south-africa-3/", "actual": "South African stocks lost R1.6 trillion in September, leaving the JSE All-Share most oversold in 17 months, with a technical rebound possible.", "o": [["SA shares lost R1.6 trillion in September, the JSE's worst run in 17 months", "right"], ["South Africans sent record amounts of money offshore this year", "assumed"], ["Foreign investors sold R100 billion of government bonds in a single month", "other"], ["Wealthy South Africans are emigrating at a record rate, taking their savings", "other"]]}, {"id": "bt:877645", "site": "bt", "h": "Woolworths launching new type of store in South Africa", "url": "https://businesstech.co.za/news/business/877645/woolworths-launching-new-type-of-store-in-south-africa/", "actual": "Woolworths is rolling out 'next generation' full-line stores modelled on its Tygervalley revamp, blending food, fashion, beauty and home with personalised services.", "o": [["Woolworths is rolling out 'next generation' stores based on its Tygervalley revamp", "right"], ["Woolworths is opening small food stores at petrol stations and in townships", "assumed"], ["Woolworths is launching a discount clothing brand to take on Pep and Ackermans", "other"], ["Woolworths is opening its first drive-through grocery pickup stores in Gauteng", "other"]]}, {"id": "bt:877647", "site": "bt", "h": "Big changes for the Gautrain in South Africa", "url": "https://businesstech.co.za/news/business/877647/big-changes-for-the-gautrain-in-south-africa/", "actual": "Gauteng appointed a new 15-year Gautrain operator, with planned fleet expansion from 24 to 32 trains, longer hours, more frequency and station upgrades.", "o": [["A new 15-year operator, more trains, longer hours and station upgrades", "right"], ["Higher fares and revised train schedules for commuters from next month", "assumed"], ["The Gautrain is being extended to Soweto, Randburg and Lanseria", "other"], ["Gautrain buses are being replaced by a new rapid bus service", "other"]]}, {"id": "bt:877587", "site": "bt", "h": "The man who received a special R51 million award from Woolworths", "url": "https://businesstech.co.za/news/business/877587/the-man-who-received-a-special-r51-million-award-from-woolworths/", "actual": "New Woolworths CEO Sam Ngumeni received a R51m performance-conditioned restricted share award, vesting over five years, disclosed in the 2026 annual report.", "o": [["The new CEO got a R51m share award tied to performance over five years", "right"], ["A long-serving executive got a R51m retention payout on retirement", "assumed"], ["A supplier won R51m in damages from Woolworths after a contract dispute", "other"], ["A whistleblower was paid R51m after exposing a procurement fraud", "other"]]}, {"id": "bt:876994", "site": "bt", "h": "One woman makes R540,000 cash in a South African township and pays zero tax", "url": "https://businesstech.co.za/news/lifestyle/876994/one-woman-makes-r540000-cash-in-a-south-african-township-and-pays-zero-tax/", "actual": "A woman earns R540,000 yearly renting 15 township back-rooms from her pension; the article covers the informal economy's scale and SARS's plans to tax it.", "o": [["She earns R540,000 a year renting out 15 backrooms", "right"], ["She runs a spaza shop whose income falls under the tax threshold", "assumed"], ["She sells hair products and does braids from home via WhatsApp", "other"], ["She runs a shebeen that turns over R540,000 a year", "other"]]}, {"id": "bt:877160", "site": "bt", "h": "An entire province in South Africa under investigation", "url": "https://businesstech.co.za/news/government/877160/an-entire-province-in-south-africa-under-investigation/", "actual": "The SAHRC is investigating North West's informal settlements and the poor services and human rights impacts residents face while awaiting development.", "o": [["The SAHRC is investigating poor services in North West's informal settlements", "right"], ["The SIU is investigating corruption in the Eastern Cape government", "assumed"], ["The Public Protector is probing Limpopo over undelivered school textbooks", "other"], ["Treasury is investigating KwaZulu-Natal over irregular spending", "other"]]}, {"id": "bt:878120", "site": "bt", "h": "Here is the official petrol price for October", "url": "https://businesstech.co.za/news/energy/878120/here-is-the-official-petrol-price-for-october-8/", "actual": "South Africa's official October 2026 fuel price adjustments: petrol up about R3.12–R3.33 per litre to record highs above R30, driven by oil and rand.", "o": [["Petrol goes up by more than R3 a litre, to a record above R30", "right"], ["Petrol changes by a few cents a litre", "assumed"], ["Petrol drops by about R1 a litre as oil prices ease", "other"], ["Petrol stays the same after the government cuts the fuel levy", "other"]]}, {"id": "bt:876943", "site": "bt", "h": "The mall with the most shops in South Africa", "url": "https://businesstech.co.za/news/lifestyle/876943/the-mall-with-the-most-shops-in-south-africa/", "actual": "Menlyn Park in Pretoria has the most stores (434) in South Africa, though Fourways Mall is larger by floor area.", "o": [["Menlyn Park in Pretoria, with 434 stores", "right"], ["Mall of Africa in Midrand", "assumed"], ["Sandton City in Johannesburg", "other"], ["Gateway Theatre of Shopping in Umhlanga", "other"]]}, {"id": "bt:878003", "site": "bt", "h": "First of its kind for Absa", "url": "https://businesstech.co.za/news/banking/878003/first-of-its-kind-for-absa/", "actual": "Absa became the first bank in Africa to offer digital-asset custody to institutional clients in South Africa, tapping a roughly R25 billion market.", "o": [["Absa became Africa's first bank to safekeep crypto for institutions", "right"], ["Absa launched a new digital banking feature or a green financing deal", "assumed"], ["Absa became the first SA bank to let clients pay with their face", "other"], ["Absa issued Africa's first corporate bond recorded on a blockchain", "other"]]}, {"id": "bt:877547", "site": "bt", "h": "Say goodbye to Capitec as you know it", "url": "https://businesstech.co.za/news/banking/877547/end-of-an-era-for-capitec-2/", "actual": "Capitec dropped 'Bank' from its name and reported 19% higher half-year earnings of R9.5bn while expanding into telecoms, insurance and Smart ID services.", "o": [["Capitec dropped 'Bank' from its name and is moving into telecoms and insurance", "right"], ["Capitec is overhauling its fees, app and account structure from next year", "assumed"], ["Capitec is closing most of its branches to become an app-only bank", "other"], ["Capitec is being bought by a foreign bank in a multi-billion rand deal", "other"]]}, {"id": "bt:877771", "site": "bt", "h": "Another United States deadline for South Africa", "url": "https://businesstech.co.za/news/business-opinion/877771/another-united-states-deadline-for-south-africa/", "actual": "Two US sanctions bills against South Africa expire 3 Jan 2027 unless enacted, alongside an AGOA review; ISS says politics outweighs economics.", "o": [["Two US sanctions bills against South Africa lapse on 3 January 2027 unless passed", "right"], ["The US gave South Africa a date to reach a trade deal or face higher tariffs", "assumed"], ["The US wants a South African businessman extradited by the end of the month", "other"], ["The US will end AGOA trade benefits for South Africa in December", "other"]]}, {"id": "bt:877185", "site": "bt", "h": "New laws proposed for South Africa’s most iconic product gaining international demand", "url": "https://businesstech.co.za/news/business-opinion/877185/new-laws-proposed-for-south-africas-most-iconic-product-gaining-international-demand/", "actual": "A game meat industry chair suggests protecting biltong's heritage and standards via geographical indication or IP laws as its international popularity grows.", "o": [["An industry chair wants biltong's name protected with origin rules", "right"], ["Government has proposed new food safety rules for biltong exports", "assumed"], ["New laws will protect the rooibos name in international markets", "other"], ["Government wants a levy on Pinotage wine exports to fund marketing abroad", "other"]]}, {"id": "mb:670602", "site": "mb", "h": "South Africa in danger of making itself irrelevant to the global financial system", "url": "https://mybroadband.co.za/news/cryptocurrency/670602-south-africa-in-danger-of-making-itself-irrelevant-to-the-global-financial-system.html", "actual": "Luno and a coalition warn the Reserve Bank's draft crypto asset rules, especially banning company cross-border crypto transfers, would make South Africa irrelevant globally.", "o": [["Luno and others warn draft Reserve Bank crypto rules would cut SA off", "right"], ["South Africa risks being sidelined because of its FATF grey-listing", "assumed"], ["Banks warn a new tax on foreign transfers will scare off foreign investors", "other"], ["South Africa is falling behind Brazil and India on instant payments", "other"]]}, {"id": "mb:669734", "site": "mb", "h": "SABC competing with supplier it owes R1.6 billion for important TV channel in South Africa", "url": "https://mybroadband.co.za/news/broadcasting/669734-sabc-competing-with-supplier-it-owes-r1-6-billion-for-important-tv-channel-in-south-africa.html", "actual": "SABC and Sentech, to whom it owes R1.6bn, are competing to win the contract to broadcast and stream Parliament TV.", "o": [["The SABC and Sentech, which it owes R1.6bn, are both bidding to broadcast Parliament TV", "right"], ["The SABC is launching a channel to compete with MultiChoice, which it owes money", "assumed"], ["The SABC is in a fight over a new sports channel with a producer it hasn't paid", "other"], ["The SABC is bidding against Netflix for a local drama it still owes money on", "other"]]}, {"id": "bt:875291", "site": "bt", "h": "Small 283-year-old town in South Africa becoming a new semigration hotspot", "url": "https://businesstech.co.za/news/property/875291/small-283-year-old-town-in-south-africa-becoming-a-new-semigration-hotspot/", "actual": "Urban buyers increasingly seek lifestyle farms within three hours of Cape Town, in areas like Swellendam, as an alternative to pricey coastal second homes.", "o": [["Swellendam, as buyers hunt for lifestyle farms near Cape Town", "right"], ["Tulbagh, as Gauteng families move to the Western Cape for schools and safety", "assumed"], ["Graaff-Reinet, as remote workers move to the Karoo for cheaper houses", "other"], ["Greyton, as retirees sell up in Johannesburg", "other"]]}, {"id": "bt:877493", "site": "bt", "h": "Banking goes digital-first", "url": "https://businesstech.co.za/news/industry-news/877493/banking-goes-digital-first/", "actual": "A Mastercard executive's opinion piece arguing Africa's digital-first economy depends on payment infrastructure and local investment, with Mastercard as the network behind it.", "o": [["It's a sponsored Mastercard opinion piece on payment infrastructure", "right"], ["SA banks report that most transactions now happen on mobile apps", "assumed"], ["FNB is closing its last cheque-processing centre as cheques disappear", "other"], ["The Reserve Bank approved its first fully digital bank licence in years", "other"]]}, {"id": "bt:877482", "site": "bt", "h": "Shapeshifters of growth", "url": "https://businesstech.co.za/news/industry-news/877482/shapeshifters-of-growth/", "actual": "A Mastercard-authored piece arguing digital payment acceptance and bundled solutions help South African SMEs formalise, access credit and grow.", "o": [["It's a Mastercard piece on digital payments helping small businesses grow", "right"], ["It's a feature on SA companies that keep reinventing their business models", "assumed"], ["It's a profile of start-ups that pivoted their businesses to survive load shedding", "other"], ["It's an analysis of which JSE-listed shares grew fastest this year", "other"]]}, {"id": "mb:670006", "site": "mb", "h": "Electricity rationing hits South Africa’s capital", "url": "https://mybroadband.co.za/news/energy/670006-electricity-rationing-hits-south-africas-capital.html", "actual": "After a substation explosion damaged Tshwane's Njala infeed station, the DA warns of lost transformer capacity and load reduction, and demands accountability.", "o": [["A substation explosion in Tshwane forced local load reduction", "right"], ["Tshwane started scheduled power cuts across Pretoria, like load shedding", "assumed"], ["Eskom returned to national load shedding, starting with Pretoria", "other"], ["Tshwane is cutting power to suburbs that owe the city money", "other"]]}, {"id": "bt:877548", "site": "bt", "h": "Three universities in South Africa ranked among the best in the world for the first time", "url": "https://businesstech.co.za/news/education/877548/three-universities-in-south-africa-ranked-among-the-best-in-the-world-for-the-first-time/", "actual": "Sixteen South African universities made the THE 2027 rankings; UCT was top at 147th, and three universities debuted on the list.", "o": [["Three SA universities debuted in the rankings, but only UCT made the top 300", "right"], ["UCT, Wits and Stellenbosch made the global top 200 for the first time", "assumed"], ["Three SA universities entered the world top 100 for engineering", "other"], ["Three SA universities were rated Africa's best for graduate employability", "other"]]}];
+const ROUND = 20;
+const SITE = { mb: 'MyBroadband', bt: 'BusinessTech' };
+const KEYS = ['1', '2', '3', '4'];
+const app = document.getElementById('app');
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+
+let S = null;   // game state
+
+function newGame() {
+  const picks = shuffle(QUESTIONS).slice(0, ROUND);
+  S = { qs: picks.map(q => ({ id: q.id, opts: shuffle(q.o.map((o, i) => i)) })), i: 0, picked: [], phase: 'ask' };
+  render();
+}
+const Q = id => QUESTIONS.find(q => q.id === id);
+
+function render() {
+  const hud = document.getElementById('hud'), prog = document.getElementById('progress');
+  if (!S) { hud.hidden = prog.hidden = true; return renderStart(); }
+  if (S.phase === 'end') { hud.hidden = prog.hidden = true; return renderEnd(); }
+  hud.hidden = prog.hidden = false;
+  const right = S.picked.filter(p => p.ok).length;
+  document.getElementById('qnum').textContent = `${S.i + 1} / ${ROUND}`;
+  document.getElementById('pts').textContent = `${right} right`;
+  document.getElementById('bar').style.width = `${(S.i + (S.phase === 'shown' ? 1 : 0)) / ROUND * 100}%`;
+  renderQuestion();
+}
+
+function renderStart() {
+  const best = store.get('wah-best');
+  app.innerHTML = `
+    <section class="card intro">
+      <div class="site">A headline game</div>
+      <h1>Can you tell <mark>what actually happened?</mark></h1>
+      <p>You get ${ROUND} real South African tech and business headlines. Each one leaves something out. Pick the story you think is behind it.</p>
+      <div class="sample">
+        <div class="site">BusinessTech</div>
+        <div class="headline">Over 220 businesses liquidated in South Africa</div>
+        <div class="q">Up, down, or the same as last year? The headline won't say.</div>
+      </div>
+      <div class="facts">
+        <span>One wrong answer per question is <b>what an AI reader assumed</b> from the headline alone.</span>
+        ${best ? `<span>Your best: <b>${best} / ${ROUND}</b></span>` : ''}
+      </div>
+      <button class="btn" id="start" type="button">Start</button>
+    </section>`;
+  document.getElementById('start').addEventListener('click', newGame);
+}
+
+function renderQuestion() {
+  const cur = S.qs[S.i], q = Q(cur.id), shown = S.phase === 'shown', pick = S.picked[S.i];
+  const opts = cur.opts.map((oi, n) => {
+    const [text, kind] = q.o[oi];
+    let cls = 'opt', tag = '';
+    if (shown) {
+      if (kind === 'right') { cls += ' right'; tag = pick.oi === oi ? '✓ You got it' : '✓ The real story'; }
+      else if (pick.oi === oi) { cls += ' wrong'; tag = kind === 'assumed' ? '✗ Your pick, and what the AI reader assumed too' : '✗ Your pick'; }
+      else { cls += ' dim'; if (kind === 'assumed') tag = 'What the AI reader assumed'; }
+      if (kind === 'assumed') cls += ' assumed';
+    }
+    return `<button type="button" class="${cls}" data-oi="${oi}" ${shown ? 'disabled' : ''} id="opt-${n}">
+      <span class="k">${'ABCD'[n]}</span><span class="txt">${kind === 'right' && shown ? `<b>${esc(text)}</b>` : esc(text)}${tag ? `<span class="tag">${tag}</span>` : ''}</span></button>`;
+  }).join('');
+  app.innerHTML = `
+    <section class="card">
+      <div class="site">${SITE[q.site]}</div>
+      <h2 class="headline">${esc(q.h)}</h2>
+      <p class="ask">What does the article actually report?</p>
+      <div class="opts">${opts}</div>
+      ${shown ? `<div class="reveal">
+        <div class="label">From the article</div>
+        <p>${esc(q.actual)}</p>
+        <div class="row">
+          <a href="${esc(q.url)}" target="_blank" rel="noopener">Read it on ${SITE[q.site]}</a>
+          <button type="button" class="btn" id="next">${S.i + 1 < ROUND ? 'Next headline' : 'See your score'}</button>
+        </div>
+      </div>` : `<p class="hint" style="margin:14px 0 0">Tip: press 1 to 4 to answer.</p>`}
+    </section>`;
+  if (!shown) app.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => answer(+b.dataset.oi)));
+  else { const n = document.getElementById('next'); n.addEventListener('click', next); n.focus({ preventScroll: true }); }
+}
+
+function answer(oi) {
+  if (S.phase !== 'ask') return;
+  const q = Q(S.qs[S.i].id);
+  S.picked[S.i] = { oi, ok: q.o[oi][1] === 'right', assumed: q.o[oi][1] === 'assumed' };
+  S.phase = 'shown';
+  render();
+  setTimeout(revealIntoView, 60);   // after the frame has grown to fit the answer
+}
+// After answering, scroll just enough to show the real story and the Next button (nothing if already visible).
+// Inside the blog, the page around the game does the scrolling, so ask it to.
+function revealIntoView() {
+  const r = app.querySelector('.reveal');
+  if (!r) return;
+  if (document.documentElement.classList.contains('embedded')) parent.postMessage({ type: 'wah-show', bottom: r.getBoundingClientRect().bottom + window.scrollY + 16 }, '*');
+  else r.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+function next() {
+  if (S.i + 1 >= ROUND) { S.phase = 'end'; const sc = S.picked.filter(p => p.ok).length; const best = +(store.get('wah-best') || 0); if (sc > best) store.set('wah-best', String(sc)); }
+  else { S.i++; S.phase = 'ask'; }
+  render(); if (EMBEDDED) parent.postMessage({ type: 'wah-top' }, '*'); else window.scrollTo({ top: 0 });
+}
+
+function face(level) {
+  const mouth = { '-2': '<path d="M11 25 Q16 18 21 25 Z" fill="var(--ink)"/>', '-1': '<path d="M11 23.5 Q16 19 21 23.5" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>',
+    '0': '<path d="M11.5 21.5 H20.5" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>', '1': '<path d="M11 19.5 Q16 24 21 19.5" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>',
+    '2': '<path d="M10.5 18.5 Q16 27 21.5 18.5 Z" fill="var(--ink)"/>' }[level];
+  return `<svg width="64" height="64" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="var(--mark)"/><circle cx="11.5" cy="14" r="1.8" fill="var(--ink)"/><circle cx="20.5" cy="14" r="1.8" fill="var(--ink)"/>${mouth}</svg>`;
+}
+
+function renderEnd() {
+  const sc = S.picked.filter(p => p.ok).length;
+  const fell = S.picked.filter(p => p.assumed).length;
+  const [lvl, title, line] =
+    sc >= 18 ? [2, 'Headline whisperer', 'You read straight through them. The headlines barely slowed you down.'] :
+    sc >= 14 ? [1, 'Hard to fool', 'You spotted most of what the headlines were hiding.'] :
+    sc >= 9  ? [0, 'About what the headlines allow', 'Fair enough: most of these give away who the story is about and very little else.'] :
+               [-1, 'The headlines got you', 'Not your fault. These headlines are built to be filled in by your imagination.'];
+  const best = store.get('wah-best');
+  app.innerHTML = `
+    <section class="card end">
+      <div class="site">Your result</div>
+      <div class="big">${face(lvl)}<div class="score">${sc}<small> / ${ROUND}</small></div></div>
+      <h2>${title}</h2>
+      <p>${line}</p>
+      <p>You picked what the AI reader assumed <b>${fell}</b> time${fell === 1 ? '' : 's'}. With no options to choose from, the AI reader got the full story right only about a quarter of the time.</p>
+      <div class="row" style="justify-content:flex-start">
+        <button type="button" class="btn" id="again">Play again</button>
+        <button type="button" class="btn ghost" id="copy">Copy my score</button>
+        <span class="copied" id="copied" hidden>Copied</span>
+      </div>
+      ${best ? `<p class="hint" style="margin-top:12px">Your best so far: ${best} / ${ROUND}</p>` : ''}
+      <ul class="review">${S.qs.map((c, i) => { const q = Q(c.id), p = S.picked[i]; return `
+        <li class="${p.ok ? 'ok' : 'no'}"><span class="mk" aria-label="${p.ok ? 'Right' : 'Wrong'}">${p.ok ? '✓' : '✗'}</span>
+          <div><div class="h"><a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.h)}</a></div><div class="a">${esc(q.o.find(o => o[1] === 'right')[0])}</div></div></li>`; }).join('')}
+      </ul>
+    </section>`;
+  document.getElementById('again').addEventListener('click', newGame);
+  document.getElementById('copy').addEventListener('click', async () => {
+    const text = `I got ${sc}/${ROUND} on "What actually happened?", guessing the real story behind South African tech headlines.`;
+    try { await navigator.clipboard.writeText(text); document.getElementById('copied').hidden = false; }
+    catch { document.getElementById('copied').textContent = text; document.getElementById('copied').hidden = false; }
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (!S || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (S.phase === 'ask' && KEYS.includes(e.key)) { const b = document.getElementById('opt-' + KEYS.indexOf(e.key)); if (b) b.click(); }
+  else if (S.phase === 'shown' && (e.key === 'Enter' || e.key === ' ') && document.activeElement?.id !== 'next') { e.preventDefault(); next(); }
+});
+
+const EMBEDDED = window.parent !== window;
+if (EMBEDDED) {
+  document.documentElement.classList.add('embedded');
+  // body, not documentElement: the root is never shorter than the frame, so it could only ever grow.
+  const post = () => parent.postMessage({ type: 'wah-height', h: Math.ceil(document.body.getBoundingClientRect().height) }, '*');
+  new ResizeObserver(post).observe(document.body);
+  window.addEventListener('load', post);
+  // The host page says whether it is in light or dark mode, so the game matches its theme toggle.
+  window.addEventListener('message', e => {
+    if (e.source === parent && e.data && e.data.type === 'wah-theme') document.documentElement.dataset.theme = e.data.dark ? 'dark' : 'light';
+  });
+  parent.postMessage({ type: 'wah-ready' }, '*');
+}
+render();
+</script>
+
+</body>
+</html>

@@ -220,6 +220,15 @@ function answer(oi) {
   S.picked[S.i] = { oi, ok: q.o[oi][1] === 'right', assumed: q.o[oi][1] === 'assumed' };
   S.phase = 'shown';
   render();
+  setTimeout(revealIntoView, 60);   // after the frame has grown to fit the answer
+}
+// After answering, scroll just enough to show the real story and the Next button (nothing if already visible).
+// Inside the blog, the page around the game does the scrolling, so ask it to.
+function revealIntoView() {
+  const r = app.querySelector('.reveal');
+  if (!r) return;
+  if (document.documentElement.classList.contains('embedded')) parent.postMessage({ type: 'wah-show', bottom: r.getBoundingClientRect().bottom + window.scrollY + 16 }, '*');
+  else r.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 function next() {
   if (S.i + 1 >= ROUND) { S.phase = 'end'; const sc = S.picked.filter(p => p.ok).length; const best = +(store.get('wah-best') || 0); if (sc > best) store.set('wah-best', String(sc)); }

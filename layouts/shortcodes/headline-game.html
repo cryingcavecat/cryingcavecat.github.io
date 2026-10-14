@@ -20,6 +20,10 @@
     if (e.source !== frame.contentWindow || !e.data) return;
     if (e.data.type === 'wah-ready') sendTheme();
     if (e.data.type === 'wah-height') frame.style.height = e.data.h + 'px';
+    if (e.data.type === 'wah-show') {
+      var over = frame.getBoundingClientRect().top + e.data.bottom - window.innerHeight;
+      if (over > 0) window.scrollBy({ top: over, behavior: 'smooth' });
+    }
     if (e.data.type === 'wah-top' && frame.getBoundingClientRect().top < 0) frame.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 })();

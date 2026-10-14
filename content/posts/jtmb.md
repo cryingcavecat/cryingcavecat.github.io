@@ -1,8 +1,8 @@
 ---
 title: "Clickbait is kak, so I built Just Tell Me, Bru!"
 date: 2026-10-08T15:01:58+02:00
-draft: true
-description: "A browser extension that rewrites clickbait headlines on MyBroadband and BusinessTech into what actually happened."
+draft: false
+description: ""
 ---
 
 I asked my friend "What's more painful? Clickbait headlines or passing kidney stones?" He replied "Let's put it this way, a clickbait headline has never made me cry myself to sleep at night."
