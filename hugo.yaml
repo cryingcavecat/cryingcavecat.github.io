@@ -34,6 +34,9 @@ languages:
         - name: Posts
           url: /posts/
           weight: 5
+        - name: Toys
+          url: /toys/
+          weight: 8
         - name: Subjects
           url: /tags/
           weight: 10

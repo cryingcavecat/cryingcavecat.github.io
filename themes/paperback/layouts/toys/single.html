@@ -1,0 +1,71 @@
+{{ define "main" }}
+{{- $t := .Params.toy }}
+{{- $mode := $t.mode | default "hold" }}
+<article class="interior toy-page toy-{{ $mode }}" style="--toy:{{ $t.color | default "#d8432f" | safeCSS }}">
+  <div class="run">
+    <a href="{{ "toys/" | relURL }}">011.sh · Toys</a>
+    <span>{{ $mode }} mode</span>
+  </div>
+  <p class="series">Scrub toys · {{ $mode }}</p>
+  <h1>{{ .Title }}</h1>
+
+  <div class="toy-stage">
+    <figure class="toyframe" id="toyframe"
+      {{- if ne $mode "scroll" }} tabindex="0" role="button" aria-label="{{ $t.hint }} to play with the animation. Keyboard: hold Space{{ if eq $mode "drag" }} or an arrow key{{ end }}."{{ end }}>
+      <video id="toyvid" src="{{ $t.video | relURL }}" poster="{{ $t.poster | relURL }}" muted playsinline preload="auto" aria-hidden="true"></video>
+      <span class="toybar" aria-hidden="true"><i id="toybar"></i></span>
+    </figure>
+    <p class="toy-hint"><span class="dot" aria-hidden="true"></span>{{ $t.hint }}</p>
+  </div>
+
+  <div class="prose toy-notes">
+    {{ .Content }}
+  </div>
+
+  {{- $all := .CurrentSection.RegularPages.ByWeight }}
+  {{- $prev := "" }}{{ $next := "" }}
+  {{- range $i, $p := $all }}
+    {{- if eq $p.RelPermalink $.RelPermalink }}
+      {{- if gt $i 0 }}{{ $prev = index $all (sub $i 1) }}{{ end }}
+      {{- if lt (add $i 1) (len $all) }}{{ $next = index $all (add $i 1) }}{{ end }}
+    {{- end }}
+  {{- end }}
+  <nav class="volnav" aria-label="More toys">
+    {{- with $prev }}<a class="prev" href="{{ .RelPermalink }}"><small>Previous toy</small>{{ .Title }}</a>{{ else }}<a class="prev" href="{{ "toys/" | relURL }}"><small>Back to</small>All toys</a>{{ end }}
+    {{- with $next }}<a class="next" href="{{ .RelPermalink }}"><small>Next toy</small>{{ .Title }}</a>{{ else }}<a class="next" href="{{ "toys/" | relURL }}"><small>Back to</small>All toys</a>{{ end }}
+  </nav>
+</article>
+
+<script src="{{ "toys/scrub-toy.js" | relURL }}"></script>
+<script>
+(function () {
+  var frame = document.getElementById('toyframe');
+  var bar = document.getElementById('toybar');
+  var mode = {{ $mode }};
+  var toy = ScrubToy({
+    video: document.getElementById('toyvid'),
+    frame: frame,
+    mode: mode,
+    easeIn: {{ $t.easeIn | default 0.07 }},
+    easeOut: {{ $t.easeOut | default 0.14 }},
+    dragRange: {{ $t.dragRange | default 260 }},
+    scrollPortion: {{ $t.scrollPortion | default 0.85 }},
+    onProgress: function (p) { bar.style.width = (p * 100) + '%'; }
+  });
+  if (mode === 'scroll') return;
+  // Keyboard: holding Space or Enter (or an arrow key for drag) acts like holding the pointer down.
+  var keys = mode === 'drag' ? [' ', 'Enter', 'ArrowLeft', 'ArrowRight'] : [' ', 'Enter'];
+  var unlocked = false;
+  frame.addEventListener('keydown', function (e) {
+    if (keys.indexOf(e.key) === -1) return;
+    e.preventDefault();
+    if (!unlocked) { toy.unlock(); unlocked = true; }
+    toy.set(1);
+  });
+  frame.addEventListener('keyup', function (e) {
+    if (keys.indexOf(e.key) !== -1) toy.set(0);
+  });
+  frame.addEventListener('blur', function () { toy.set(0); });
+})();
+</script>
+{{ end }}

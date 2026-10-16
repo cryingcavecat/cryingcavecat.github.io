@@ -1,0 +1,21 @@
+{{ define "main" }}
+<header class="list-head wrap">
+  <p class="kicker">Scrub toys</p>
+  <h1>{{ .Title }}</h1>
+  {{- with .Content }}<div class="toys-intro">{{ . }}</div>{{ end }}
+</header>
+<section class="toybox wrap" aria-label="Toys">
+  {{- range .RegularPages.ByWeight }}
+  {{- $t := .Params.toy }}
+  <a class="toycard" href="{{ .RelPermalink }}" style="--toy:{{ $t.color | default "#d8432f" | safeCSS }}">
+    <span class="toycard-frame">
+      <img src="{{ $t.poster | relURL }}" alt="" loading="lazy">
+      {{- with $t.end }}<img class="end" src="{{ . | relURL }}" alt="" loading="lazy">{{ end }}
+    </span>
+    <span class="toycard-mode">{{ $t.mode }}</span>
+    <span class="toycard-title">{{ .Title }}</span>
+    <span class="toycard-hint">{{ $t.hint }}</span>
+  </a>
+  {{- end }}
+</section>
+{{ end }}
