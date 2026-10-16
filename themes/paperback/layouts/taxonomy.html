@@ -1,0 +1,14 @@
+{{ define "main" }}
+<article class="interior index-page">
+  <div class="run"><a href="{{ "/" | relURL }}">011.sh</a><span>Index</span></div>
+  <p class="series">An index</p>
+  <h1>{{ .Title }}</h1>
+  <ol class="index">
+    {{- range .Data.Terms.Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a><span class="leader" aria-hidden="true"></span><span>{{ .Count }}</span></li>
+    {{- else }}
+    <li class="empty">Nothing filed under {{ lower .Title }} yet.</li>
+    {{- end }}
+  </ol>
+</article>
+{{ end }}

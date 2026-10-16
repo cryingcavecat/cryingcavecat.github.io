@@ -2,6 +2,13 @@
 title: "Clickbait is kak, so I built Just Tell Me, Bru!"
 date: 2026-10-08T15:01:58+02:00
 draft: false
+tags: ["builds", "browser extensions"]
+paperback:
+  title: "Clickbait is Kak"
+  subtitle: "or, how I built Just Tell Me, Bru!"
+  color: "#f2df8a"
+  type: sans
+  art: covers/jtmb.svg
 description: "A browser extension that rewrites clickbait headlines on MyBroadband and BusinessTech into what actually happened."
 cover:
   image: "/images/jtmb/marquee.png"

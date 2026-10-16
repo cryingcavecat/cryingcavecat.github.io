@@ -1,303 +1,121 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto">
-
+<!doctype html>
+<html lang="en">
 <head>
 	<meta name="generator" content="Hugo 0.164.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem("pref-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t;}catch(e){}</script>
 <title>011.sh</title>
-
-<meta name="description" content="">
+<meta name="description" content="A paperback series of dubious experiments by Liam Kloppers: hardware, software, plants and birds.">
 <meta name="author" content="Liam Kloppers">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.ed42a47c2de72c05bf93ef053b29fa2dd6f1838928545be0be357c9ab66f8ec6.css" integrity="sha256-7UKkfC3nLAW/k&#43;8FOyn6Ldbxg4koVFvgvjV8mrZvjsY=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/apple-touch-icon.png">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:url" content="http://localhost:1313/">
-  <meta property="og:site_name" content="011.sh">
-  <meta property="og:title" content="011.sh">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
-      <meta property="og:image" content="http://localhost:1313/images/papermod-cover.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://localhost:1313/images/papermod-cover.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ead9cc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b1714" media="(prefers-color-scheme: dark)"><meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/index.xml" title="011.sh">
+<meta property="og:site_name" content="011.sh">
+<meta property="og:title" content="011.sh">
+<meta property="og:description" content="A paperback series of dubious experiments by Liam Kloppers: hardware, software, plants and birds.">
+<meta property="og:url" content="http://localhost:1313/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="011.sh">
-<meta name="twitter:description" content="">
+<meta name="twitter:description" content="A paperback series of dubious experiments by Liam Kloppers: hardware, software, plants and birds.">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "011.sh",
-  "url": "http://localhost:1313/",
-  "description": "",
-  "logo": "http://localhost:1313/favicon.ico",
-  "sameAs": [
-      "https://github.com/cryingcavecat", "https://www.liamkloppers.com", "mailto:dm@011.sh"
-  ]
-}
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@500;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/css/site.min.75cccbe963573f76b056a4e2cb22b75ca8a25c903175d10a184dc6888bae2a2d.css" integrity="sha256-dczL6WNXP3awVqTiyyK3XKiiXJAxddEKGE3GiIuuKi0=">
+
 </head>
-
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="011.sh (Alt + H)">011.sh</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="http://localhost:1313/posts" title="Posts">
-                    <span>Posts</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+<body class="kind-home">
+  <a class="skip" href="#main">Skip to content</a><header class="masthead wrap">
+  <a class="logo" href="/">011.sh<small>A paperback series of dubious experiments</small></a>
+  <nav aria-label="Main">
+    <a href="/posts/">Posts</a>
+    <a href="/tags/">Subjects</a>
+    <a href="/about/">About</a>
+    <button class="theme-toggle" type="button" aria-label="Switch between light and dark">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+    </button>
+  </nav>
 </header>
-<main class="main"> 
-<article class="first-entry home-info">
-    <header class="entry-header">
-        <h1>Liam</h1>
-    </header>
-    <div class="entry-content">
-        <ul>
-<li>Tinkerer. Prototyper. Sorcerer (hot sauce and otherwise).</li>
-<li>Collecting weird books, herding cats, attempting berimbolos.</li>
-</ul>
 
-    </div>
-    <footer class="entry-footer">
-        <div class="social-icons" >
-    <a href="https://github.com/cryingcavecat" target="_blank" rel="noopener noreferrer me"
-        title="Github Profile">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-    </path>
-</svg>
-    </a>
-    <a href="https://www.liamkloppers.com" target="_blank" rel="noopener noreferrer me"
-        title="Connect on LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-    <rect x="2" y="9" width="4" height="12"></rect>
-    <circle cx="4" cy="4" r="2"></circle>
-</svg>
-    </a>
-    <a href="mailto:dm@011.sh" target="_blank" rel="noopener noreferrer me"
-        title="Send a Mail">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-    <polyline points="22,6 12,13 2,6"></polyline>
-</svg>
-    </a>
+  <main id="main">
+<h1 class="sr-only">011.sh</h1>
+<section class="shelf wrap" aria-label="Posts"><a class="book t-sans" href="/posts/jtmb/" style="--cover:#f2df8a">
+  <div class="top">
+    <span class="roundel" aria-hidden="true"><span>011<b>3</b></span></span>
+    <span>OCT 2026 · 2 MIN</span>
+  </div>
+  <div class="t">
+    <h2>Clickbait is Kak</h2><div class="sub">or, how I built Just Tell Me, Bru!</div>
+    <div class="by">Liam Kloppers</div>
+  </div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#2f6fb5" stroke-width="2" stroke-dasharray="3 5" stroke-linecap="round"><path d="M126 60C148 60 166 66 174 78"/><path d="M80 102C60 104 40 110 32 118"/><path d="M126 138C140 136 148 138 152 140"/></g><g stroke="#141414" stroke-width="5" stroke-linecap="round"><path d="M20 48L120 64"/><path d="M184 84L84 100"/><path d="M22 122L122 138"/></g><g fill="#141414"><circle cx="20" cy="48" r="4"/><circle cx="120" cy="64" r="4"/><circle cx="184" cy="84" r="4"/><circle cx="84" cy="100" r="4"/><circle cx="22" cy="122" r="4"/><circle cx="122" cy="138" r="4"/></g><circle cx="36" cy="39" r="8" fill="#d8432f" stroke="#141414" stroke-width="2.5"/><path d="M14 174h176" stroke="#141414" stroke-width="3"/><path d="M38 174l4-10h16l4 10z" fill="#f0c73a" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/><ellipse cx="50" cy="151" rx="10" ry="13" fill="#f6efdf" stroke="#141414" stroke-width="2.5"/><rect x="124" y="157" width="58" height="16" rx="8" fill="#f2a7b8" stroke="#141414" stroke-width="2.5"/><circle cx="153" cy="148" r="8" fill="#d8432f" stroke="#141414" stroke-width="2.5"/></svg>
 </div>
-
-    </footer>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Clickbait is kak, so I built Just Tell Me, Bru!
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>I asked my friend “What’s more painful? Clickbait headlines or passing kidney stones?” He replied “Let’s put it this way, a clickbait headline has never made me cry myself to sleep at night.”
-That’s not really the answer I wanted going into this article. I haven’t had kidney stones, but every time I see a clickbait article it’s at least the mental equivalent of stubbing my toe on a coffee table.
-...</p>
+  <div class="foot"><span>011.sh · builds</span><span>R0</span></div>
+</a>
+<a class="book t-serif" href="/posts/pavlov/" style="--cover:#4a90c8">
+  <div class="top">
+    <span class="roundel" aria-hidden="true"><span>011<b>2</b></span></span>
+    <span>AUG 2026 · 10 MIN</span>
   </div>
-  <footer class="entry-footer"><span title='2026-10-08 15:01:58 +0200 SAST'>October 8, 2026</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Liam Kloppers</footer>
-  <a class="entry-link" aria-label="post link to Clickbait is kak, so I built Just Tell Me, Bru!" href="http://localhost:1313/posts/jtmb/"></a>
-</article>
-
-<article class="post-entry"> 
-<figure class="entry-cover">
-        <img loading="lazy" src="http://localhost:1313/images/blog/collar2.jpg" alt="The S900 collar in hand">
-</figure>
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Using a shock collar to stop myself doomscrolling
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>I’m hooked up to the dopamine scroll machine where Meta harvests my soul for advertising. At this point that’s how I see it. Like anyone with a smartphone and social media I’m susceptible to a junk food diet of endlessly scrolling Instagram Reels or viewing pigs sling mud at one another on whatever Facebook has deemed popular enough to show me against my will.
-I do dream of a healthy social media diet (and more self-control). Instagram is full of lovely creators that fill me with motivation and, well, Facebook has some interesting things on marketplace. Typical wisdom would suggest removing temptation completely and deleting these apps, but I find them marginally useful for work and for buying furniture. So instead I’d much rather try and reduce my consumption.
-...</p>
+  <div class="t">
+    <h2>Using a shock collar to stop myself doomscrolling</h2>
+    <div class="by">Liam Kloppers</div>
   </div>
-  <footer class="entry-footer"><span title='2026-08-15 13:46:49 +0200 SAST'>August 15, 2026</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;Liam Kloppers</footer>
-  <a class="entry-link" aria-label="post link to Using a shock collar to stop myself doomscrolling" href="http://localhost:1313/posts/pavlov/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Can an LLM care for my plants (or at least kill them slower than I do)?
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p> In the Beginning In the beginning, I was bad with plants. I’m not terrible with plants - but much like books, collecting them is a different hobby from actually doing anything with them.
-I sometimes buy books from the perspective of the person I want to be. “I am a person that reads interesting books” and thus also “I am a person who cares for plants”. Thank goodness for succulents, them hardy beasts. I’m not too hard on myself because I am human after all. But AI will fix that, right? Norbert Wiener, cybernetics, extending our human form, making our lives easier and all that.
-...</p>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg"><path d="M64 -6h44l2 122c1 20 14 34 36 38l30 6c8 2 8 14 0 14H70c-8 0-12-6-10-14l4-26z" fill="#f6efdf" stroke="#141414" stroke-width="3.5" stroke-linejoin="round"/><rect x="58" y="62" width="58" height="18" fill="#d8432f" stroke="#141414" stroke-width="3.5"/><rect x="74" y="56" width="26" height="30" fill="#141414"/><circle cx="81" cy="71" r="3" fill="#f0c73a"/><circle cx="93" cy="71" r="3" fill="#f0c73a"/><g stroke="#f0c73a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M44 48l-12 8 10 4-12 10"/><path d="M126 84l12 6-10 6 12 8"/></g><path d="M150 72C144 72 132 70 122 70" stroke="#141414" stroke-width="2.5" stroke-dasharray="3 4" fill="none" stroke-linecap="round"/><rect x="148" y="14" width="36" height="58" rx="6" fill="#f6efdf" stroke="#141414" stroke-width="3"/><g fill="#141414"><rect x="154" y="23" width="24" height="11"/><rect x="154" y="39" width="16" height="4"/><rect x="154" y="48" width="24" height="11"/></g><circle cx="182" cy="16" r="7" fill="#d8432f" stroke="#141414" stroke-width="2.5"/></svg>
+</div>
+  <div class="foot"><span>011.sh · hardware</span><span>R0</span></div>
+</a>
+<a class="book t-cond" href="/posts/plantmom/" style="--cover:#f3ecdd">
+  <div class="top">
+    <span class="roundel" aria-hidden="true"><span>011<b>1</b></span></span>
+    <span>APR 2025 · 14 MIN</span>
   </div>
-  <footer class="entry-footer"><span title='2025-04-25 14:18:40 +0200 SAST'>April 25, 2025</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;Liam Kloppers</footer>
-  <a class="entry-link" aria-label="post link to Can an LLM care for my plants (or at least kill them slower than I do)?" href="http://localhost:1313/posts/plantmom/"></a>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>with ❤️ from 🇿🇦</span> · 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+  <div class="t">
+    <h2><span class="hl">can an llm</span> care for my plants?</h2><div class="sub">or at least kill them slower than I do</div>
+    <div class="by">Liam Kloppers</div>
+  </div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="60" fill="#2f6fb5"/><path d="M0 60A60 60 0 0 1 60 0V60z" fill="#f6efdf"/><rect x="60" width="60" height="60" fill="#f6efdf" stroke="#141414"/><circle cx="90" cy="30" r="22" fill="#141414"/><circle cx="90" cy="30" r="9" fill="#d8432f"/><rect x="120" width="60" height="60" fill="#d8432f"/><path d="M180 0A60 60 0 0 0 120 60H180z" fill="#2f6fb5"/><rect y="60" width="60" height="60" fill="#141414"/><text x="30" y="99" text-anchor="middle" font-family="Jost, Futura, sans-serif" font-weight="700" font-size="28" fill="#f6efdf">01</text><rect x="60" y="60" width="60" height="60" fill="#f0c73a"/><path d="M72 92h36l-6 24H78z" fill="#d8432f"/><path d="M90 92c0-14 8-24 18-26 0 12-8 22-18 26zM90 92c0-12-7-20-16-22 0 10 7 18 16 22z" fill="#2f6fb5"/><rect x="120" y="60" width="60" height="60" fill="#f6efdf" stroke="#141414"/><g fill="#2f6fb5"><path d="M134 74c5 7 7 11 7 14a7 7 0 0 1-14 0c0-3 2-7 7-14z"/><path d="M164 70c5 7 7 11 7 14a7 7 0 0 1-14 0c0-3 2-7 7-14z"/><path d="M150 92c5 7 7 11 7 14a7 7 0 0 1-14 0c0-3 2-7 7-14z"/></g></svg>
+</div>
+  <div class="foot"><span>011.sh · AI</span><span>R0</span></div>
 </a>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+<a class="book t-mix" href="/about/" style="--cover:#f7f4ec">
+  <div class="top"><span class="roundel" aria-hidden="true"><span>011<b>?</b></span></span><span>ABOUT</span></div>
+  <div class="t"><h2>About the Author</h2><div class="sub">Tinkerer. Prototyper. Sorcerer (hot sauce and otherwise).</div></div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 160"><g style="mix-blend-mode:multiply"><circle cx="76" cy="66" r="50" fill="#d8432f"/><circle cx="124" cy="66" r="50" fill="#f0c73a"/><circle cx="100" cy="106" r="50" fill="#2f6fb5"/></g><circle cx="100" cy="80" r="7" fill="#141414"/></svg></div>
+  <div class="foot"><span>011.sh · about</span><span></span></div>
+</a>
+<a class="book t-cond" href="/tags/" style="--cover:#d9c08d">
+  <div class="top"><span class="roundel" aria-hidden="true"><span>011<b>#</b></span></span><span>INDEX</span></div>
+  <div class="t"><h2>an index of subjects</h2><div class="sub">hardware · ai · browser extensions · builds · habits · plants</div></div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 160"><path d="M30 20v120M30 40h60M30 80h110M30 120h80M90 40v40M140 80v50" stroke="#141414" stroke-width="2.5" fill="none"/><g fill="#141414"><circle cx="30" cy="20" r="5"/><circle cx="90" cy="40" r="5"/><circle cx="140" cy="130" r="5"/><circle cx="110" cy="120" r="5"/></g><rect x="70" y="58" width="44" height="44" transform="rotate(45 92 80)" fill="#2f6fb5"/><circle cx="92" cy="80" r="12" fill="#d8432f"/><path d="M150 130h10m4-10v20m6-14v8m6-12v16" stroke="#141414" stroke-width="2.5"/></svg></div>
+  <div class="foot"><span>011.sh · tags</span><span></span></div>
+</a>
+<a class="book t-sans" href="/index.xml" style="--cover:#ffffff">
+  <div class="top"><span class="roundel" aria-hidden="true"><span>011<b>∞</b></span></span><span>SUBSCRIBE</span></div>
+  <div class="t"><h2>New Volumes by Post</h2><div class="sub">Follow along with RSS and new posts land in your feed reader.</div></div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 160"><path d="M40 150A110 110 0 0 1 150 40" stroke="#2f6fb5" stroke-width="14" fill="none"/><path d="M40 150A80 80 0 0 1 120 70" stroke="#141414" stroke-width="14" fill="none"/><path d="M40 150A50 50 0 0 1 90 100" stroke="#d8432f" stroke-width="14" fill="none"/><circle cx="46" cy="144" r="13" fill="#f0c73a" stroke="#141414" stroke-width="3"/></svg></div>
+  <div class="foot"><span>RSS feed</span><span></span></div>
+</a>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
+</section>
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
 
-</script>
-<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  </main><footer class="colophon wrap">
+  <p class="links"><a href="https://github.com/cryingcavecat" rel="me">Github</a><a href="https://www.liamkloppers.com" rel="me">Linkedin</a><a href="mailto:dm@011.sh" rel="me">Email</a><a href="/index.xml">RSS</a>
+  </p>
+  <p>with ❤️ from 🇿🇦 · 2026</p>
+  <p class="small">Set in Old Standard, Jost and Libre Caslon. Printed with Hugo.</p>
+</footer>
+
+  <script src="/js/main.min.bb51bcdcce41d059439255c9512c6acabb953aa4918b754cc60e886772e0b9cf.js" integrity="sha256-u1G83M5B0FlDklXJUSxqyruVOqSRi3VMxg6IZ3Lguc8=" defer></script>
 </body>
-
-</html> 
+</html>

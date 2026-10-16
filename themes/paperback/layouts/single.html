@@ -1,0 +1,56 @@
+{{ define "main" }}
+{{- $isPost := in site.MainSections .Section }}
+{{- $no := partial "volno.html" . }}
+<article class="interior">
+  <div class="run">
+    <a href="{{ "/" | relURL }}">011.sh</a>
+    <span>{{ if $isPost }}No. {{ $no }}{{ with .Params.tags }} · {{ index . 0 }}{{ end }}{{ end }}</span>
+  </div>
+
+  {{- if $isPost }}
+  <p class="series">{{ site.Params.series | default "Dubious Experiments" }} · No. {{ $no }}</p>
+  {{- end }}
+  <h1>{{ .Title }}</h1>
+  {{- if $isPost }}
+  <p class="au">{{ site.Params.author }} · <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2 January 2006" }}</time> · {{ .ReadingTime }} min read</p>
+  <div class="emblem" aria-hidden="true">{{ partial "cover-art.html" . }}</div>
+  {{- end }}
+
+  {{- with .Params.cover }}{{ with .image }}
+  <figure class="plate">
+    <img src="{{ . | relURL }}" alt="{{ $.Params.cover.alt }}">
+    {{- with $.Params.cover.alt }}<figcaption>Plate I · {{ . }}</figcaption>{{ end }}
+  </figure>
+  {{- end }}{{ end }}
+
+  {{- if and $isPost (ne .Params.ShowToc false) (gt (len (findRE "<li>" .TableOfContents)) 2) }}
+  <details class="toc">
+    <summary>Contents</summary>
+    {{ .TableOfContents }}
+  </details>
+  {{- end }}
+
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{- with .Params.tags }}
+  <p class="filed">Filed under {{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ (site.GetPage (printf "/tags/%s" ($t | urlize))).RelPermalink }}">{{ $t }}</a>{{ end }}</p>
+  {{- end }}
+
+  {{- if $isPost }}
+  {{- $all := (where site.RegularPages "Section" "in" site.MainSections).ByDate }}
+  {{- $older := "" }}{{ $newer := "" }}
+  {{- range $i, $p := $all }}
+    {{- if eq $p.RelPermalink $.RelPermalink }}
+      {{- if gt $i 0 }}{{ $older = index $all (sub $i 1) }}{{ end }}
+      {{- if lt (add $i 1) (len $all) }}{{ $newer = index $all (add $i 1) }}{{ end }}
+    {{- end }}
+  {{- end }}
+  <nav class="volnav" aria-label="More volumes">
+    {{- with $older }}<a class="prev" href="{{ .RelPermalink }}"><small>Previous volume</small>{{ .Title }}</a>{{ else }}<span></span>{{ end }}
+    {{- with $newer }}<a class="next" href="{{ .RelPermalink }}"><small>Next volume</small>{{ .Title }}</a>{{ else }}<span></span>{{ end }}
+  </nav>
+  {{- end }}
+</article>
+{{ end }}

@@ -1,0 +1,22 @@
+{{- /* Cover illustration: paperback.art (an SVG in assets/) if set, otherwise geometric art generated from the title. */ -}}
+{{- $art := "" -}}
+{{- with .Params.paperback }}{{ with .art }}{{ $art = . }}{{ end }}{{ end -}}
+{{- $res := "" -}}
+{{- with $art }}{{ $res = resources.Get . }}{{ end -}}
+{{- if $res -}}
+  {{- $res.Content | safeHTML -}}
+{{- else -}}
+  {{- $h := hash.FNV32a .Title -}}
+  {{- $pal := slice "#d8432f" "#2f6fb5" "#f0c73a" "#141414" -}}
+  {{- $a := index $pal (mod $h 4) -}}
+  {{- $b := index $pal (mod (add $h 1) 4) -}}
+  {{- $c := index $pal (mod (add $h 2) 4) -}}
+  {{- $v := mod (div $h 7) 3 -}}
+  {{- if eq $v 0 -}}
+<svg viewBox="0 0 200 180"><circle cx="100" cy="90" r="82" fill="{{ $a }}"/><circle cx="100" cy="90" r="58" fill="#f6efdf"/><circle cx="100" cy="90" r="36" fill="{{ $b }}"/><circle cx="100" cy="90" r="14" fill="{{ $c }}"/><path d="M18 90h164" stroke="#141414" stroke-width="3"/></svg>
+  {{- else if eq $v 1 -}}
+<svg viewBox="0 0 180 120"><rect width="60" height="60" fill="{{ $a }}"/><path d="M0 60A60 60 0 0 1 60 0V60z" fill="#f6efdf"/><rect x="60" width="60" height="60" fill="#f6efdf"/><circle cx="90" cy="30" r="22" fill="{{ $b }}"/><rect x="120" width="60" height="60" fill="{{ $c }}"/><path d="M180 0A60 60 0 0 0 120 60H180z" fill="#f6efdf"/><rect y="60" width="60" height="60" fill="{{ $b }}"/><path d="M0 120A60 60 0 0 0 60 60V120z" fill="{{ $c }}"/><rect x="60" y="60" width="60" height="60" fill="{{ $c }}"/><path d="M72 108l18-36 18 36z" fill="#f6efdf"/><rect x="120" y="60" width="60" height="60" fill="#f6efdf"/><circle cx="150" cy="90" r="18" fill="none" stroke="{{ $a }}" stroke-width="8"/></svg>
+  {{- else -}}
+<svg viewBox="0 0 200 180"><g fill="{{ $b }}"><rect x="20" y="30" width="160" height="10"/><rect x="20" y="52" width="160" height="10"/><rect x="20" y="118" width="160" height="10"/><rect x="20" y="140" width="160" height="10"/></g><rect x="20" y="74" width="160" height="10" fill="{{ $c }}"/><rect x="20" y="96" width="160" height="10" fill="{{ $c }}"/><circle cx="100" cy="90" r="46" fill="{{ $a }}" stroke="#141414" stroke-width="3"/><circle cx="116" cy="78" r="10" fill="#f6efdf"/></svg>
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{- $posts := where site.RegularPages "Section" "in" site.MainSections }}
+{{- $pag := .Paginate $posts.ByDate.Reverse (site.Params.shelfSize | default 9) }}
+<h1 class="sr-only">{{ site.Title }}</h1>
+<section class="shelf wrap" aria-label="Posts">
+  {{- range $pag.Pages }}{{ partial "book.html" . }}{{ end }}
+  {{- if eq $pag.PageNumber 1 }}{{ partial "fixed-books.html" . }}{{ end }}
+</section>
+{{ partial "pager.html" $pag }}
+{{ end }}

@@ -1,0 +1,22 @@
+{{- /* The three non-post covers on the first page of the shelf: About, Subjects, RSS. */ -}}
+{{- with site.GetPage "/about" }}
+<a class="book t-mix" href="{{ .RelPermalink }}" style="--cover:#f7f4ec">
+  <div class="top"><span class="roundel" aria-hidden="true"><span>011<b>?</b></span></span><span>ABOUT</span></div>
+  <div class="t"><h2>About the Author</h2>{{ with site.Params.tagline_short }}<div class="sub">{{ . }}</div>{{ end }}</div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 160"><g style="mix-blend-mode:multiply"><circle cx="76" cy="66" r="50" fill="#d8432f"/><circle cx="124" cy="66" r="50" fill="#f0c73a"/><circle cx="100" cy="106" r="50" fill="#2f6fb5"/></g><circle cx="100" cy="80" r="7" fill="#141414"/></svg></div>
+  <div class="foot"><span>011.sh · about</span><span></span></div>
+</a>
+{{- end }}
+<a class="book t-cond" href="{{ "tags/" | relURL }}" style="--cover:#d9c08d">
+  <div class="top"><span class="roundel" aria-hidden="true"><span>011<b>#</b></span></span><span>INDEX</span></div>
+  <div class="t"><h2>an index of subjects</h2>
+    {{- with site.Taxonomies.tags }}<div class="sub">{{ range $i, $t := .ByCount }}{{ if lt $i 6 }}{{ if $i }} · {{ end }}{{ $t.Page.Title | lower }}{{ end }}{{ end }}</div>{{ end }}</div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 160"><path d="M30 20v120M30 40h60M30 80h110M30 120h80M90 40v40M140 80v50" stroke="#141414" stroke-width="2.5" fill="none"/><g fill="#141414"><circle cx="30" cy="20" r="5"/><circle cx="90" cy="40" r="5"/><circle cx="140" cy="130" r="5"/><circle cx="110" cy="120" r="5"/></g><rect x="70" y="58" width="44" height="44" transform="rotate(45 92 80)" fill="#2f6fb5"/><circle cx="92" cy="80" r="12" fill="#d8432f"/><path d="M150 130h10m4-10v20m6-14v8m6-12v16" stroke="#141414" stroke-width="2.5"/></svg></div>
+  <div class="foot"><span>011.sh · tags</span><span></span></div>
+</a>
+<a class="book t-sans" href="{{ "index.xml" | relURL }}" style="--cover:#ffffff">
+  <div class="top"><span class="roundel" aria-hidden="true"><span>011<b>∞</b></span></span><span>SUBSCRIBE</span></div>
+  <div class="t"><h2>New Volumes by Post</h2><div class="sub">Follow along with RSS and new posts land in your feed reader.</div></div>
+  <div class="art" aria-hidden="true"><svg viewBox="0 0 200 160"><path d="M40 150A110 110 0 0 1 150 40" stroke="#2f6fb5" stroke-width="14" fill="none"/><path d="M40 150A80 80 0 0 1 120 70" stroke="#141414" stroke-width="14" fill="none"/><path d="M40 150A50 50 0 0 1 90 100" stroke="#d8432f" stroke-width="14" fill="none"/><circle cx="46" cy="144" r="13" fill="#f0c73a" stroke="#141414" stroke-width="3"/></svg></div>
+  <div class="foot"><span>RSS feed</span><span></span></div>
+</a>

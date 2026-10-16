@@ -1,0 +1,8 @@
+<footer class="colophon wrap">
+  <p class="links">
+    {{- range site.Params.socialIcons }}<a href="{{ .url }}" rel="me">{{ .name | title }}</a>{{ end -}}
+    <a href="{{ "index.xml" | relURL }}">RSS</a>
+  </p>
+  <p>{{ with site.Copyright }}{{ . | markdownify }} · {{ end }}{{ now.Year }}</p>
+  <p class="small">Set in Old Standard, Jost and Libre Caslon. Printed with Hugo.</p>
+</footer>

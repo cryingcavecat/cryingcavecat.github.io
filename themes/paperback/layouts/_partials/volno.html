@@ -1,0 +1,10 @@
+{{- /* Volume number: position of the page among all main-section posts, oldest = 1. Front matter paperback.number overrides it. */ -}}
+{{- $n := 0 -}}
+{{- with .Params.paperback }}{{ with .number }}{{ $n = . }}{{ end }}{{ end -}}
+{{- if not $n -}}
+  {{- $all := (where site.RegularPages "Section" "in" site.MainSections).ByDate -}}
+  {{- range $i, $p := $all -}}
+    {{- if eq $p.RelPermalink $.RelPermalink }}{{ $n = add $i 1 }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $n -}}

@@ -1,8 +1,0 @@
-/* Keep cover images on the post list from getting too tall (portrait photos fill the whole screen
-   otherwise). Wide covers under the cap are untouched; taller ones are cropped from the centre. */
-.post-entry .entry-cover img {
-  width: 100%;
-  max-height: 340px;
-  object-fit: cover;
-  object-position: center;
-}

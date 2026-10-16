@@ -1,0 +1,4 @@
+name = "Paperback"
+license = "MIT"
+description = "A mid-century science paperback theme for 011.sh. Posts are numbered volumes with geometric covers."
+min_version = "0.146.0"

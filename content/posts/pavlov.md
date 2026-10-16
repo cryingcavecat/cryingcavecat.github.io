@@ -2,6 +2,11 @@
 date: '2026-08-15T13:46:49+02:00'
 draft: false
 title: 'Using a shock collar to stop myself doomscrolling'
+tags: ["hardware", "habits"]
+paperback:
+  color: "#4a90c8"
+  type: serif
+  art: covers/pavlov.svg
 cover:
   image: "/images/blog/collar2.jpg"
   alt: "The S900 collar in hand"

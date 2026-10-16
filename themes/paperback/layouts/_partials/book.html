@@ -1,0 +1,29 @@
+{{- /* One post rendered as a paperback cover.
+  Optional front matter (all fields optional):
+    paperback:
+      title: "Short cover title"      # HTML allowed, e.g. <em>
+      subtitle: "or, a longer line"
+      color: "#f2df8a"                  # cover colour
+      type: sans | serif | cond | mix   # title typography
+      art: covers/my-post.svg           # file in assets/; otherwise art is generated
+      number: 4                         # volume number override
+*/ -}}
+{{- $p := .Params.paperback | default (dict) -}}
+{{- $h := hash.FNV32a .Title -}}
+{{- $colors := slice "#f2df8a" "#4a90c8" "#f3ecdd" "#d9c08d" "#f7f4ec" "#e8b7a0" "#9cc3b2" -}}
+{{- $bg := $p.color | default (index $colors (mod $h (len $colors))) -}}
+{{- $type := $p.type | default (index (slice "sans" "serif" "cond" "mix") (mod $h 4)) -}}
+{{- $no := partial "volno.html" . -}}
+<a class="book t-{{ $type }}" href="{{ .RelPermalink }}" style="--cover:{{ $bg | safeCSS }}">
+  <div class="top">
+    <span class="roundel" aria-hidden="true"><span>011<b>{{ $no }}</b></span></span>
+    <span>{{ .Date | time.Format "Jan 2006" | upper }} · {{ .ReadingTime }} MIN</span>
+  </div>
+  <div class="t">
+    <h2>{{ with $p.title }}{{ . | safeHTML }}{{ else }}{{ $.Title }}{{ end }}</h2>
+    {{- with $p.subtitle }}<div class="sub">{{ . }}</div>{{ end }}
+    <div class="by">{{ site.Params.author }}</div>
+  </div>
+  <div class="art" aria-hidden="true">{{ partial "cover-art.html" . }}</div>
+  <div class="foot"><span>011.sh{{ with .Params.tags }} · {{ index . 0 }}{{ end }}</span><span>R0</span></div>
+</a>

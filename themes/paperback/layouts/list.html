@@ -1,0 +1,12 @@
+{{ define "main" }}
+<header class="list-head wrap">
+  <p class="kicker">{{ if eq .Kind "term" }}Subject{{ else }}The complete series{{ end }}</p>
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+{{- $pag := .Paginate .RegularPages.ByDate.Reverse (site.Params.shelfSize | default 9) }}
+<section class="shelf wrap">
+  {{- range $pag.Pages }}{{ partial "book.html" . }}{{ end }}
+</section>
+{{ partial "pager.html" $pag }}
+{{ end }}

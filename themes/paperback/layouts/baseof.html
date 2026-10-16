@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode | default "en" }}">
+<head>
+  {{- partial "head.html" . }}
+</head>
+<body class="kind-{{ .Kind }}">
+  <a class="skip" href="#main">Skip to content</a>
+  {{- partial "header.html" . }}
+  <main id="main">
+    {{- block "main" . }}{{ end }}
+  </main>
+  {{- partial "footer.html" . }}
+  {{- $js := resources.Get "js/main.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+  {{- if hugo.IsProduction }}
+  <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  {{- end }}
+</body>
+</html>

@@ -11,11 +11,14 @@
 <script>
 (function () {
   var frame = document.currentScript.previousElementSibling.querySelector('iframe');
-  // PaperMod marks dark mode with a "dark" class on <body>; pass it on so the game matches the toggle.
-  function sendTheme() {
-    if (frame.contentWindow) frame.contentWindow.postMessage({ type: 'wah-theme', dark: document.body.classList.contains('dark') }, '*');
+  // The theme marks dark mode with data-theme on <html> (or follows the system setting); pass it on so the game matches.
+  function isDark() {
+    return window.paperbackIsDark ? window.paperbackIsDark() : document.documentElement.dataset.theme === 'dark';
   }
-  new MutationObserver(sendTheme).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  function sendTheme() {
+    if (frame.contentWindow) frame.contentWindow.postMessage({ type: 'wah-theme', dark: isDark() }, '*');
+  }
+  document.documentElement.addEventListener('themechange', sendTheme);
   window.addEventListener('message', function (e) {
     if (e.source !== frame.contentWindow || !e.data) return;
     if (e.data.type === 'wah-ready') sendTheme();

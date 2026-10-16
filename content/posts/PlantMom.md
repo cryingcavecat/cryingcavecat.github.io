@@ -2,6 +2,15 @@
 date = '2025-04-25T14:18:40+02:00'
 draft = false
 title = 'Can an LLM care for my plants (or at least kill them slower than I do)?'
+tags = ['AI', 'plants', 'hardware']
+aliases = ['/posts/plant-mom/']
+
+[paperback]
+title = '<span class="hl">can an llm</span> care for my plants?'
+subtitle = 'or at least kill them slower than I do'
+color = '#f3ecdd'
+type = 'cond'
+art = 'covers/plantmom.svg'
 +++
 
 {{< figure align=center src="/images/blog/intro.jpg" alt="Hero Image" >}}
