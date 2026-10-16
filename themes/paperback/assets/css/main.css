@@ -55,6 +55,7 @@ a { color: inherit; }
 /* Shelf of covers */
 .shelf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 4vw, 44px); padding-left: clamp(16px, 5vw, 56px); padding-right: clamp(16px, 5vw, 56px); padding-bottom: 24px; }
 @media (max-width: 720px) { .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .shelf { grid-template-columns: minmax(0, 340px); justify-content: center; gap: 28px; } }
 
 .book {
   container-type: inline-size;
@@ -100,7 +101,11 @@ a { color: inherit; }
 .interior h1 { text-align: center; font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: 12px 0 10px; text-wrap: balance; }
 .au { text-align: center; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; margin: 0 0 28px; color: var(--muted); }
 .emblem { display: flex; justify-content: center; margin: 0 auto 28px; }
-.emblem svg { width: min(220px, 60%); height: auto; }
+.emblem-art { display: block; width: min(220px, 60%); }
+.emblem-art svg { display: block; width: 100%; height: auto; }
+/* Cover art is drawn for a coloured cover; on dark paper, give it a small plate in its cover colour. */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .emblem-art { background: var(--cover); padding: 14px 18px; box-shadow: 6px 6px 0 #00000055; } }
+:root[data-theme="dark"] .emblem-art { background: var(--cover); padding: 14px 18px; box-shadow: 6px 6px 0 #00000055; }
 .plate { margin: 0 0 30px; text-align: center; }
 .plate img { display: block; margin: 0 auto; border: 1px solid var(--rule); max-height: 520px; width: auto; }
 .plate figcaption, .fig figcaption { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }

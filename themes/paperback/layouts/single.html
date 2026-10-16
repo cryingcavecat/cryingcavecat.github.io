@@ -13,7 +13,10 @@
   <h1>{{ .Title }}</h1>
   {{- if $isPost }}
   <p class="au">{{ site.Params.author }} · <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "2 January 2006" }}</time> · {{ .ReadingTime }} min read</p>
-  <div class="emblem" aria-hidden="true">{{ partial "cover-art.html" . }}</div>
+  {{- $pb := .Params.paperback | default (dict) }}
+  {{- $cols := slice "#f2df8a" "#4a90c8" "#f3ecdd" "#d9c08d" "#f7f4ec" "#e8b7a0" "#9cc3b2" }}
+  {{- $cover := $pb.color | default (index $cols (mod (hash.FNV32a .Title) (len $cols))) }}
+  <div class="emblem" aria-hidden="true" style="--cover:{{ $cover | safeCSS }}"><span class="emblem-art">{{ partial "cover-art.html" . }}</span></div>
   {{- end }}
 
   {{- with .Params.cover }}{{ with .image }}

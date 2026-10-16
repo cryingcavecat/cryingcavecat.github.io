@@ -28,10 +28,10 @@ Large language models (and their multimodal siblings), I'd say have officially s
 
 {{< figure align=center src="/images/blog/nandi.jpg" alt="Dog movie star" width="200" >}}
 
-So it stands to reason, if "normal" people are using it. It should be able to do "normal" people things. Like, take care of my plants - or at least guess the most probable action to take next.
+So it stands to reason, if "normal" people are using it, it should be able to do "normal" people things. Like, take care of my plants - or at least guess the most probable action to take next.
 
 ___
-## How not to kill a plants
+## How not to kill a plant
 
 According to [BBC's BITESIZE](https://www.bbc.co.uk/bitesize/articles/zrtdwty#:~:text=Plants%20need%20air%2C%20light%2C%20warmth,are%20upright%20with%20green%20leaves.) (a resource for children and teachers), plants need "air, light, warmth, water, and nutrients" to be healthy. My initial brainstorming looked like this. 
 
@@ -39,13 +39,13 @@ According to [BBC's BITESIZE](https://www.bbc.co.uk/bitesize/articles/zrtdwty#:~
 - Light - Light Sensor -> Turn on or off the light.
 - Warmth - thermometer -> turn on a heater?
 - Water - Soil Moisture Sensor -> water
-- Nutrients - PH sensor -> prompt for plant food. 
+- Nutrients - pH sensor -> prompt for plant food. 
 
 I didn't want to overcomplicate it and since I wouldn't normally do half these things anyway I wouldn't expect an LLM to do it. The important part would be giving it sensor values that would reflect environmental factors that I can normally judge using my senses. 
 
 This would mainly lead to two questions: Is the plant getting enough water and is the plant getting enough light?
 
-I settled on tracking light, soil moisture and temperature (just as an extra variable). With actionable tasks inlcuding relay control of a grow light and a water pump. 
+I settled on tracking light, soil moisture and temperature (just as an extra variable). With actionable tasks including relay control of a grow light and a water pump. 
 
 ___
 ## Sensor Stack
@@ -67,9 +67,9 @@ ___
 
 1) Decided I wouldn't do that at all. I would just use a basic function calling solution. 
 2) I wouldn't be self-hosting it either.
-	1) It might sound cocky but I do believe I'm more competent than a 7b model or anything my GPU can run without making me fear that a fire is about to start. 
+	1) It might sound cocky but I do believe I'm more competent than a 7B model or anything my GPU can run without making me fear that a fire is about to start. 
 
-Philipp Schmid at Google's [article](https://www.philschmid.de/gemma-function-calling) *Google Gemma 3 Function Calling Example* is a nugget of gold I dug up in a Reddit thread somewhere and it describes a method of implementing function calling using Gemma 3 27b (she might be smarter than me). 
+Philipp Schmid at Google's [article](https://www.philschmid.de/gemma-function-calling) *Google Gemma 3 Function Calling Example* is a nugget of gold I dug up in a Reddit thread somewhere and it describes a method of implementing function calling using Gemma 3 27B (she might be smarter than me). 
 
 Phil's methodology involves using an initial instruction prompt loaded with the available Python functions (well-commented with arguments and purpose laid out for Gemma to interpret) as well as a task - in this case currency conversion. 
 
@@ -129,8 +129,8 @@ I 3D printed some bits to help - a temporary bulb holder designed in Fusion, a [
 
 - The pump is placed in a closed container because I only want _some_ water near my circuits (and because my cat wants to drink this water). 
 - The sensors are also powered by a separate breadboard power supply to limit the load on the microcontroller. 
-- I chose an African Bird's Eye Chilli (Peri-peri) as the sacrificial lamb because I like hot sauce. And biggest fruits are a good metric for plant health. 
-- As measures of health, I counted the chilis (44). As a preferred measure of health that wouldn't drive me nuts, I measured plant height from table to top (40 cm) and the length of the longest branch (51 cm).
+- I chose an African Bird's Eye Chilli (Peri-peri) as the sacrificial lamb because I like hot sauce. And the biggest fruits are a good metric for plant health. 
+- As measures of health, I counted the chillies (44). As a preferred measure of health that wouldn't drive me nuts, I measured plant height from table to top (40 cm) and the length of the longest branch (51 cm).
 
 
 
@@ -234,7 +234,7 @@ ___
 - It definitely pumped too much water when it didn't need to. 
 - Much like humans, plants have a circadian rhythm, so Gemma thought it was a good idea to blast the light 24/7. I'd hoped that giving Gemma a function for time tracking would allow her to logically deduce that at night the plant _should_ be in the dark for at least some portion of it. She just relied on the fact that more is better. 
 	- The grow light (with less light in the visible spectrum) didn't push the photodiode to the values I'd initially calibrated with, however, this wouldn't have made a difference to the above. 
-- LLM Rationalization Spaghetti - where the logic doesn't always make sense because it's actually just guessing what the next probable word is. High values, low values? Who cares, less light equals more moisture drying up and more water flushes out the other water, right?
+- LLM Rationalisation Spaghetti - where the logic doesn't always make sense because it's actually just guessing what the next probable word is. High values, low values? Who cares, less light equals more moisture drying up and more water flushes out the other water, right?
 
 ___
 ## Would I let this take care of all my plants?
@@ -255,7 +255,7 @@ ___
 - Use a cheap soldering iron: knives are not great for cutting Tupperware and this will save you a trip to the ER. At least I got a cool X-ray out of it. 
 - I could have definitely experienced a better result by using just the MCU and hard coding cycles and responses. 
 - Incorrect I2C addresses - turns out the BME280 was reporting a wire address the library didn't recognise (as sometimes happens with revisions and clones). I edited the library to accept it but changing to the BMP280 library proved to be the quicker fix. 
-- 2025/04/29: On /r/Arduino, user [HairSorry7888](https://www.reddit.com/r/arduino/comments/1k9sik1/comment/mpj8lrp/) also informed me of how resistive moisture sensors corrode rapidly in soil which leads to plant death. I'll take their recommendation and acquire a capacitive sensors instead.
+- 2025/04/29: On /r/Arduino, user [HairSorry7888](https://www.reddit.com/r/arduino/comments/1k9sik1/comment/mpj8lrp/) also informed me of how resistive moisture sensors corrode rapidly in soil which leads to plant death. I'll take their recommendation and acquire a capacitive sensor instead.
 - 2025/04/30: Featured on [Hackaday](https://hackaday.com/2025/04/29/comparing-ai-for-basic-plant-care-with-human-brown-thumbs/)
 
 ### Appendix A
