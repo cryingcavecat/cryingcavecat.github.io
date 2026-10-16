@@ -17,16 +17,19 @@
   --sans: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
   --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
   --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1b1714; --paper: #25201b; --ink: #efe6d4; --muted: #a8998a; --rule: #efe6d42b;
     --red: #ef7360; --blue: #79abe6; --code: #1c1814; --shadow: 0 0 0;
+    color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #1b1714; --paper: #25201b; --ink: #efe6d4; --muted: #a8998a; --rule: #efe6d42b;
   --red: #ef7360; --blue: #79abe6; --code: #1c1814; --shadow: 0 0 0;
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
