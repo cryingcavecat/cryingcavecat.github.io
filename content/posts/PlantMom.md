@@ -26,7 +26,7 @@ ___
 
 Large language models (and their multimodal siblings), I'd say have officially started reaching the realm of the Average Joe. I know this because my parents have been sending me Studio Ghibli edits of photos in which I can only imagine the prompt to include "turn my dog into a 1940s Silent Movie Actress".
 
-{{< figure align=center src="/images/blog/nandi.png" alt="Dog movie star" width="200" >}}
+{{< figure align=center src="/images/blog/nandi.jpg" alt="Dog movie star" width="200" >}}
 
 So it stands to reason, if "normal" people are using it. It should be able to do "normal" people things. Like, take care of my plants - or at least guess the most probable action to take next.
 
@@ -260,4 +260,4 @@ ___
 
 ### Appendix A
 
-{{< figure align=center src="/images/blog/breadboard.png" alt="Breadboard pains" width="400" >}}
+{{< figure align=center src="/images/blog/breadboard.jpg" alt="Breadboard pains" width="400" >}}

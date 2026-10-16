@@ -1,0 +1,7 @@
+# Hugo build output (GitHub Actions builds the site itself)
+public/
+resources/_gen/
+.hugo_build.lock
+
+# Scratch
+_to_delete/
